@@ -9,9 +9,13 @@ import SwiftUI
 
 @main
 struct MealCartApp: App {
+    
+    @StateObject private var modelData = ModelData()
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            RecipeDetail(recipe: modelData.recipes[0])
+                .environmentObject(modelData)
         }
     }
 }
