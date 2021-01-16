@@ -19,6 +19,7 @@
 		6489B0FA25B0EE2300A07B94 /* RemoteImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6489B0F925B0EE2300A07B94 /* RemoteImage.swift */; };
 		64911CD325B147D4002E4818 /* recipeData.json in Resources */ = {isa = PBXBuildFile; fileRef = 64911CD225B147D4002E4818 /* recipeData.json */; };
 		64911CD825B14828002E4818 /* ModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64911CD725B14828002E4818 /* ModelData.swift */; };
+		64911CE125B380BF002E4818 /* FavouriteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64911CE025B380BF002E4818 /* FavouriteButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 		6489B0F925B0EE2300A07B94 /* RemoteImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteImage.swift; sourceTree = "<group>"; };
 		64911CD225B147D4002E4818 /* recipeData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = recipeData.json; sourceTree = "<group>"; };
 		64911CD725B14828002E4818 /* ModelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelData.swift; sourceTree = "<group>"; };
+		64911CE025B380BF002E4818 /* FavouriteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,9 +149,9 @@
 		6489B0E425B0CF0A00A07B94 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				64911CDF25B380A4002E4818 /* Helpers */,
 				648973C925A50BC30049AB5B /* ContentView.swift */,
 				6489B0E925B0D23A00A07B94 /* RecipeDetail.swift */,
-				6489B0F925B0EE2300A07B94 /* RemoteImage.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -170,6 +172,15 @@
 				64911CD225B147D4002E4818 /* recipeData.json */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		64911CDF25B380A4002E4818 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				6489B0F925B0EE2300A07B94 /* RemoteImage.swift */,
+				64911CE025B380BF002E4818 /* FavouriteButton.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -303,6 +314,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6489B0EA25B0D23A00A07B94 /* RecipeDetail.swift in Sources */,
+				64911CE125B380BF002E4818 /* FavouriteButton.swift in Sources */,
 				648973CA25A50BC30049AB5B /* ContentView.swift in Sources */,
 				648973C825A50BC30049AB5B /* MealCartApp.swift in Sources */,
 				6489B0FA25B0EE2300A07B94 /* RemoteImage.swift in Sources */,

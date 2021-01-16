@@ -15,6 +15,8 @@ struct RecipeData: Hashable, Codable {
 struct Recipe: Hashable, Codable, Identifiable {
     //conform to codable to encode/decode with external representations such as JSON, identifiable to be used in lists
     
+    // MARK: Properties
+    
     var id: Int
     var title: String
     var servings: Int
@@ -22,7 +24,13 @@ struct Recipe: Hashable, Codable, Identifiable {
     var instructions: String
     var extendedIngredients: [Ingredient]
     
-    struct Ingredient: Codable, Hashable {
+    // this is not part of the API response, but we need this to distinguish users' favourite recipes
+    var isFavourite: Bool {
+        false
+    }
+    
+    struct Ingredient: Codable, Hashable, Identifiable {
+        var id: Int
         var aisle: String
         var name: String
         var originalString: String //eg: 2 cups of sliced almonds
@@ -47,42 +55,41 @@ struct Recipe: Hashable, Codable, Identifiable {
     }
 }
 
+// MARK: API Integration
 
-    func getRandomRecipes() {
-        guard let url = URL(string: "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/random") else {
-            fatalError("Error creating URL object")
+// because data task is async, return upon completion
+func getRandomRecipes(completion: @escaping ([Recipe], Error?) -> Void) {
+    
+    guard let url = URL(string: "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/random") else {
+        fatalError("Error creating URL object")
+    }
+
+    // URL request
+    var request = URLRequest(url: url, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 10)
+
+    // required headers for RapidAPI
+    let headers = [
+        "x-rapidapi-key": "76b131f22bmsh9bc25358f01fd32p1ea0b6jsna39871c1bc90",
+        "x-rapidapi-host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com"
+    ]
+
+    request.allHTTPHeaderFields = headers
+
+    request.httpMethod = "GET"
+
+    URLSession.shared.dataTask(with: request) { data, response, error in
+        guard let data = data, error == nil else {
+            fatalError("Failed to load data")
         }
 
-        // URL request
-        var request = URLRequest(url: url, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 10)
-
-        // required headers for RapidAPI
-        let headers = [
-            "x-rapidapi-key": "76b131f22bmsh9bc25358f01fd32p1ea0b6jsna39871c1bc90",
-            "x-rapidapi-host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com"
-        ]
-
-        request.allHTTPHeaderFields = headers
-
-//        // How many random recipes to get?
-//        request.addValue("1", forHTTPHeaderField: "number")
-
-        request.httpMethod = "GET"
-
-        let dataTask = URLSession.shared.dataTask(with: request, completionHandler: { (data, response, error) -> Void in
-            guard let data = data, error == nil else {
-                fatalError("Failed to load data")
-            }
-
-            let httpResponse = response as? HTTPURLResponse
-            print(httpResponse)
-//            if let decodedData = try? JSONDecoder().decode(Recipe, from: data) {
-//                DispatchQueue.main.async {
-//
-//                }
-//            }
-
-        })
-        .resume()
-
-    }
+        do {
+            // return recipes upon completion
+            let decoder = JSONDecoder()
+            let decodedData = try decoder.decode(RecipeData.self, from: data)
+            completion(decodedData.recipes, nil)
+        }  catch {
+            fatalError("Couldn't parse URL's response correctly")
+        }
+    }.resume()
+    
+}
