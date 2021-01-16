@@ -12,8 +12,7 @@ struct RecipeDetail: View {
     var recipe: Recipe
    
     var body: some View {
-        recipe.recipeImage
-        
+        Text("hello world")
     }
 }
 
@@ -21,7 +20,7 @@ struct RecipeDetail_Previews: PreviewProvider {
     static let modelData = ModelData()
     
     static var previews: some View {
-        RecipeDetail(recipe: modelData.recipes[0])
+        RecipeDetail(recipe: modelData.recipeData.recipes[0])
             .environmentObject(modelData)
     }
 }
