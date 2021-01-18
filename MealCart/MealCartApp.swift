@@ -17,9 +17,8 @@ struct MealCartApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView(recipe: modelData.recipeData.recipes[0])
+            RecipeDetail(recipe: modelData.recipeData.recipes[0])
                 .environmentObject(modelData)
-
         }
     }
 }

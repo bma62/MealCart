@@ -20,7 +20,7 @@ struct RecipeDetail: View {
     @State private var displayMode = "ingredients"
     
     var body: some View {
-        VStack {
+        VStack (alignment: .leading ) {
             recipe.recipeImage
                 .ignoresSafeArea(edges: .top)
                 .aspectRatio(contentMode: .fit)
@@ -29,10 +29,12 @@ struct RecipeDetail: View {
             HStack {
                 Text(recipe.title)
                     .font(.title)
+                    .padding(.leading)
                 FavouriteButton(isSet: .constant(true))
             }
             
-//            Divider()
+            Divider()
+                .offset(y: -5)
             
             Picker("", selection: $displayMode) {
                 Text("Ingredients").tag("ingredients")
