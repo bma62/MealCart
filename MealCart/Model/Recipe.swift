@@ -5,6 +5,10 @@
 //  Created by Boyi Ma on 2021-01-14.
 //
 
+/*
+ The structs in this file are used to match the JSON format of the recipe data from Spoonacular API
+ */
+
 import Foundation
 import SwiftUI
 
@@ -21,10 +25,11 @@ struct Recipe: Hashable, Codable, Identifiable {
     var title: String
     var servings: Int
     var readyInMinutes: Int
+    // TODO: Change this to use analyzedInstructions as that is formatted better
     var instructions: String
     var extendedIngredients: [Ingredient]
     
-    // this is not part of the API response, but we need this to distinguish users' favourite recipes
+    // this is not part of the API response, but we need this to distinguish the user's favourite recipes
     var isFavourite: Bool {
         false
     }
@@ -33,30 +38,35 @@ struct Recipe: Hashable, Codable, Identifiable {
         var id: Int
         var aisle: String
         var name: String
-        var originalString: String //eg: 2 cups of sliced almonds
+        var originalString: String
+        var unit: String
+        var amount: Double
         
-        var measures: Measure
-        
-        struct Measure: Codable, Hashable {
-            var metric: Metric
-            
-            struct Metric: Codable, Hashable {
-                var amount: Double
-                var unitShort: String //eg: cup
-                var unitLong: String //eg: cups
-            }
-        }
+//        var measures: Measure
+//
+//        struct Measure: Codable, Hashable {
+//            var metric: Metric
+//
+//            struct Metric: Codable, Hashable {
+//                var amount: Double
+//                var unitShort: String //eg: cup
+//                var unitLong: String //eg: cups
+//            }
+//        }
     }
     
     // make image URL private because users of the struct care about the image only
     private var image: String
     var recipeImage: RemoteImage {
+        // load the remote image from URL
         RemoteImage(url: image)
     }
 }
 
 // MARK: API Integration
-
+/*
+ THIS HASN'T BEEN TESTED, USE ModelData FOR NOW
+ */
 // because data task is async, return upon completion
 func getRandomRecipes(completion: @escaping ([Recipe], Error?) -> Void) {
     

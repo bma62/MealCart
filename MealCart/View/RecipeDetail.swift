@@ -13,30 +13,31 @@ struct RecipeDetail: View {
     
     var recipeIndex: Int {
         // this provides an optional but we know there will be exactly one match, so force it to unwrap
-        // compute the index of the input landmark by comparing with model data
+        // compute the index of the input recipe by comparing with model data
         modelData.recipeData.recipes.firstIndex(where: { $0.id == recipe.id })!
     }
     
     @State private var displayMode = "ingredients"
     
     var body: some View {
-        VStack (alignment: .leading ) {
+        VStack {
             recipe.recipeImage
-                .ignoresSafeArea(edges: .top)
-                .aspectRatio(contentMode: .fit)
-                .frame(height: 250)
+//                .ignoresSafeArea(edges: .top)
+                .aspectRatio(contentMode: .fill)
+                .frame(height: 300)
             
             HStack {
                 Text(recipe.title)
                     .font(.title)
                     .padding(.leading)
+                // the favourite property hasn't been connected to data model yet
                 FavouriteButton(isSet: .constant(true))
             }
             
             Divider()
                 .offset(y: -5)
             
-            Picker("", selection: $displayMode) {
+            Picker("Menu", selection: $displayMode) {
                 Text("Ingredients").tag("ingredients")
                 Text("Instructions").tag("instructions")
             }
@@ -45,13 +46,15 @@ struct RecipeDetail: View {
             if displayMode == "ingredients" {
                 List {
                     ForEach(recipe.extendedIngredients) { ingredient in
-                        Text(ingredient.originalString)
+                        // display each ingredient and get rid of decimal points
+                        Text("\(Int(ingredient.amount)) \(ingredient.unit) \(ingredient.name)")
                     }
                 }
                 // set edge insets to 0 so content extends to the edges of the display
                 .listRowInsets(EdgeInsets())
 
             } else {
+                // TODO: this should be changed to analyzed instructions
                 List {
                     Text(recipe.instructions)
                 }

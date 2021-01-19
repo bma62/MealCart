@@ -23,7 +23,6 @@ struct ContentView: View {
             Text("Meal Plan Page")
                 .tabItem {
                     Label("Meal Plan", systemImage: "calendar")
-                    
                 }
                 .tag(Tab.mealPan)
             

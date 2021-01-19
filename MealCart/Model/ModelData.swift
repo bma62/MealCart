@@ -5,15 +5,17 @@
 //  Created by Boyi Ma on 2021-01-14.
 //
 
+/*
+ This class decodes the recipeData.json file and save the data into recipeData, use this for development purposes
+*/
+
 import Foundation
 import Combine
 
-/*
- final prevents the class from being inherited or overridden
- SwiftUI subscribes to ObservableObject and updates any views that depend on this data
-*/
+//final prevents the class from being inherited or overridden
+//SwiftUI subscribes to ObservableObject and updates any views that depend on this data
 final class ModelData: ObservableObject {
-    // publish any changes to the landmarks data
+    // publish any changes of the recipe data so views can update themselves
     @Published var recipeData:RecipeData = load("recipeData.json")
 }
 

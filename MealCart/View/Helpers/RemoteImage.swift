@@ -8,6 +8,7 @@
 /*
  This custom view is used to fetch an image from a URL asynchronously
  */
+
 import SwiftUI
 
 struct RemoteImage: View {
