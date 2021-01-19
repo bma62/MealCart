@@ -22,7 +22,6 @@ struct RecipeDetail: View {
     var body: some View {
         VStack {
             recipe.recipeImage
-//                .ignoresSafeArea(edges: .top)
                 .aspectRatio(contentMode: .fill)
                 .frame(height: 300)
             
@@ -47,7 +46,8 @@ struct RecipeDetail: View {
                 List {
                     ForEach(recipe.extendedIngredients) { ingredient in
                         // display each ingredient and get rid of decimal points
-                        Text("\(Int(ingredient.amount)) \(ingredient.unit) \(ingredient.name)")
+//                        Text("\(String(ingredient.amount)) \(ingredient.unit) \(ingredient.name)")
+                        Text(ingredient.originalString)
                     }
                 }
                 // set edge insets to 0 so content extends to the edges of the display
@@ -72,7 +72,7 @@ struct RecipeDetail_Previews: PreviewProvider {
     
     static var previews: some View {
         NavigationView {
-            RecipeDetail(recipe: modelData.recipeData.recipes[0])
+            RecipeDetail(recipe: modelData.recipeData.recipes[3])
                 .environmentObject(modelData)
         }
     }
