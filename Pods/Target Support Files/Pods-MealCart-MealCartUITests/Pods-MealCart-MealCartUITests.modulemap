@@ -1,0 +1,6 @@
+framework module Pods_MealCart_MealCartUITests {
+  umbrella header "Pods-MealCart-MealCartUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}
