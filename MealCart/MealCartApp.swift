@@ -30,8 +30,9 @@ struct MealCartApp: App {
 }
 
 class AppDelegate: NSObject, UIApplicationDelegate {
-  func application(_ application: UIApplication,
-                   didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+    
+  func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+    
     print("App is starting up. ApplicationDelegate didFinishLaunchingWithOptions.")
     
     // Use Firebase library to configure APIs
