@@ -9,6 +9,7 @@ import SwiftUI
 
 struct HomeScreen: View {
     @EnvironmentObject var modelData: ModelData
+    @EnvironmentObject var session: SessionStore
 //    var recipe: Recipe
     
     enum Tab {
@@ -38,7 +39,9 @@ struct HomeScreen: View {
                 }
                 .tag(Tab.favourites)
             
-            Text("Settings Page")
+            Button(action: session.logOut) {
+                Text("Log Out")
+            }
                 .tabItem {
                     Label("Settings", systemImage: "gearshape")
                 }
@@ -49,11 +52,13 @@ struct HomeScreen: View {
 
 struct HomeScreen_Previews: PreviewProvider {
     static let modelData = ModelData()
+    static let session = SessionStore()
     
     static var previews: some View {
         Group {
             HomeScreen()
                 .environmentObject(modelData)
+                .environmentObject(session)
         }
     }
 }

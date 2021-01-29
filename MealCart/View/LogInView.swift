@@ -9,19 +9,21 @@ import SwiftUI
 
 struct LogInView: View {
     
+    // MARK: Properties
+    
     let lightGrey = Color(red: 239/255, green: 243/255, blue: 244/255)
     
     @EnvironmentObject var session: SessionStore
     
     @State var email = ""
     @State var password = ""
-    @State var loading = false
     @State var error = ""
     
+    // MARK: Log In Function
+    
     func logIn() {
-        loading = true
         session.logIn(email: email, password: password) { (result, error) in
-            self.loading = false
+            // if the error is not nil, read the error message
             if let error = error {
                 self.error = error.localizedDescription
             } else {
@@ -48,6 +50,8 @@ struct LogInView: View {
                     .padding(.bottom, 75)
                 
                 TextField("Email", text: $email)
+                    .autocapitalization(.none)
+                    .disableAutocorrection(true)
                     .padding()
                     .background(RoundedRectangle(cornerRadius: 5).strokeBorder())
                     .background(lightGrey)
@@ -59,39 +63,51 @@ struct LogInView: View {
                     .background(lightGrey)
                     .padding(.bottom, 20)
                 
-                Button(action: logIn) {
-                    Text("Log In")
-                        .fontWeight(.bold)
-                        .foregroundColor(Color.white)
-                        .background(Color.green)
-                        .font(.title2)
-                        .cornerRadius(5)
-                        .frame(height: 50)
-                        .frame(minWidth: 0, maxWidth: .infinity)
-                        
-                }
-                
                 if (error != "") {
                     Text(error)
-                        .font(.title3)
+                        .font(.caption2)
+                        .foregroundColor(.red)
+                        .offset(y: -10)
+                }
+                                
+                Button(action: logIn) {
+                    Text("Log In")
+                        .font(.title2)
+                        .fontWeight(.semibold)
+                        .foregroundColor(Color.white)
+                        .frame(width: 220, height: 50)
+                        .background(Color.green)
+                        .cornerRadius(35)
+                        .padding(20)
+                        
                 }
                 
                 NavigationLink(destination: SignUpView()) {
                     Text("Sign Up")
-//                        .foregroundColor(.white)
-                        .cornerRadius(5)
+                        .font(.title2)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.white)
+                        .frame(width: 220, height: 50)
+                        .background(Color.blue)
+                        .cornerRadius(35)
                 }
-
+                
+                Spacer()
+                
             }
             .padding()
         }
+        // hide navigation bar to move contents up
+        .navigationBarHidden(true)
     }
 
 }
 
 struct LogIn_Previews: PreviewProvider {
     static var previews: some View {
-        LogInView()
-            .environmentObject(SessionStore())
+        NavigationView {
+            LogInView()
+                .environmentObject(SessionStore())
+        }
     }
 }
