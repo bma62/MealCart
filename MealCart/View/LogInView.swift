@@ -27,6 +27,7 @@ struct LogInView: View {
             if let error = error {
                 self.error = error.localizedDescription
             } else {
+                // upon successful log in, clear the states
                 self.email = ""
                 self.password = ""
                 self.error = ""
@@ -47,20 +48,23 @@ struct LogInView: View {
                     .aspectRatio(contentMode: .fill)
                     .frame(width: 150, height: 150)
                     .cornerRadius(25)
-                    .padding(.bottom, 75)
+                    .padding(.bottom, 30)
                 
                 TextField("Email", text: $email)
+                    .keyboardType(.emailAddress)
                     .autocapitalization(.none)
                     .disableAutocorrection(true)
                     .padding()
-                    .background(RoundedRectangle(cornerRadius: 5).strokeBorder())
+                    .background(RoundedRectangle(cornerRadius: 25).strokeBorder())
                     .background(lightGrey)
+                    .cornerRadius(25)
                     .padding(.bottom, 20)
                 
                 SecureField("Password", text: $password)
                     .padding()
-                    .background(RoundedRectangle(cornerRadius: 5).strokeBorder())
+                    .background(RoundedRectangle(cornerRadius: 25).strokeBorder())
                     .background(lightGrey)
+                    .cornerRadius(25)
                     .padding(.bottom, 20)
                 
                 if (error != "") {

@@ -56,7 +56,10 @@ struct RecipeDetail: View {
             } else {
                 // TODO: this should be changed to analyzed instructions
                 List {
-                    Text(recipe.instructions)
+                    // because step is not Identifiable, use its number as id
+                    ForEach(recipe.analyzedInstructions[0].steps, id: \.number) { step in
+                        Text("\(step.number). \(step.step)")
+                    }
                 }
                 .listRowInsets(EdgeInsets())
             }

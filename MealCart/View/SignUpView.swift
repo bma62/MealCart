@@ -27,6 +27,7 @@ struct SignUpView: View {
             if let error = error {
                 self.error = error.localizedDescription
             } else {
+                // upon successful sign up, clear the states
                 self.email = ""
                 self.password = ""
                 self.error = ""
@@ -36,6 +37,8 @@ struct SignUpView: View {
     
     var body: some View {
         VStack {
+            Spacer()
+            
             Text("Create Account")
                 .font(.largeTitle)
                 .fontWeight(.semibold)
@@ -46,20 +49,23 @@ struct SignUpView: View {
                 .aspectRatio(contentMode: .fill)
                 .frame(width: 150, height: 150)
                 .cornerRadius(25)
-                .padding(.bottom, 75)
+                .padding(.bottom, 30)
             
             TextField("Email", text: $email)
+                .keyboardType(.emailAddress)
                 .autocapitalization(.none)
                 .disableAutocorrection(true)
                 .padding()
-                .background(RoundedRectangle(cornerRadius: 5).strokeBorder())
+                .background(RoundedRectangle(cornerRadius: 25).strokeBorder())
                 .background(lightGrey)
+                .cornerRadius(25)
                 .padding(.bottom, 20)
             
             SecureField("Password", text: $password)
                 .padding()
-                .background(RoundedRectangle(cornerRadius: 5).strokeBorder())
+                .background(RoundedRectangle(cornerRadius: 25).strokeBorder())
                 .background(lightGrey)
+                .cornerRadius(25)
                 .padding(.bottom, 20)
             
             if (error != "") {
@@ -75,7 +81,7 @@ struct SignUpView: View {
                     .fontWeight(.semibold)
                     .foregroundColor(Color.white)
                     .frame(width: 220, height: 50)
-                    .background(Color.green)
+                    .background(Color.blue)
                     .cornerRadius(35)
                     .padding(20)
             }

@@ -26,6 +26,17 @@ struct Recipe: Hashable, Codable, Identifiable {
     var servings: Int
     var readyInMinutes: Int
     // TODO: Change this to use analyzedInstructions as that is formatted better
+    var analyzedInstructions: [AnalyzedInstructions]
+    
+    struct AnalyzedInstructions: Codable, Hashable {
+        var steps: [InstructionStep]
+        
+        struct InstructionStep: Codable, Hashable {
+            var number: Int
+            var step: String
+        }
+    }
+    
     var instructions: String
     var extendedIngredients: [Ingredient]
     
@@ -41,18 +52,6 @@ struct Recipe: Hashable, Codable, Identifiable {
         var originalString: String
         var unit: String
         var amount: Double
-        
-//        var measures: Measure
-//
-//        struct Measure: Codable, Hashable {
-//            var metric: Metric
-//
-//            struct Metric: Codable, Hashable {
-//                var amount: Double
-//                var unitShort: String //eg: cup
-//                var unitLong: String //eg: cups
-//            }
-//        }
     }
     
     // make image URL private because users of the struct care about the image only
