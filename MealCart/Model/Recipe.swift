@@ -25,7 +25,7 @@ struct Recipe: Hashable, Codable, Identifiable {
     var title: String
     var servings: Int
     var readyInMinutes: Int
-    // TODO: Change this to use analyzedInstructions as that is formatted better
+
     var analyzedInstructions: [AnalyzedInstructions]
     
     struct AnalyzedInstructions: Codable, Hashable {

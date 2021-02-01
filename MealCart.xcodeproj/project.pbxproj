@@ -26,6 +26,7 @@
 		64911CE125B380BF002E4818 /* FavouriteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64911CE025B380BF002E4818 /* FavouriteButton.swift */; };
 		6497F4DD25BE4C8F00811986 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6497F4DC25BE4C8F00811986 /* GoogleService-Info.plist */; };
 		64A22DB925C35DCA00D6569D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64A22DB825C35DCA00D6569D /* ContentView.swift */; };
+		64A22DC425C78BA400D6569D /* top-1k-ingredients.csv in Resources */ = {isa = PBXBuildFile; fileRef = 64A22DC325C78BA400D6569D /* top-1k-ingredients.csv */; };
 		903D029ED9798CB2DB1EECCD /* Pods_MealCart.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C839E93651321B7E353C6D71 /* Pods_MealCart.framework */; };
 		E341EE5063E1EDF97E2B8890 /* Pods_MealCart_MealCartUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1200FBC00951C19741921185 /* Pods_MealCart_MealCartUITests.framework */; };
 /* End PBXBuildFile section */
@@ -78,6 +79,7 @@
 		64911CE025B380BF002E4818 /* FavouriteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteButton.swift; sourceTree = "<group>"; };
 		6497F4DC25BE4C8F00811986 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		64A22DB825C35DCA00D6569D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		64A22DC325C78BA400D6569D /* top-1k-ingredients.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "top-1k-ingredients.csv"; sourceTree = "<group>"; };
 		C839E93651321B7E353C6D71 /* Pods_MealCart.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MealCart.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2EA6FF9D929A07FE6D37D8F /* Pods-MealCart-MealCartUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MealCart-MealCartUITests.debug.xcconfig"; path = "Target Support Files/Pods-MealCart-MealCartUITests/Pods-MealCart-MealCartUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		E28A3CF4EA79EB47257972AB /* Pods-MealCart.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MealCart.debug.xcconfig"; path = "Target Support Files/Pods-MealCart/Pods-MealCart.debug.xcconfig"; sourceTree = "<group>"; };
@@ -214,6 +216,7 @@
 		6489B10425B1460A00A07B94 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				64A22DC325C78BA400D6569D /* top-1k-ingredients.csv */,
 				64911CD225B147D4002E4818 /* recipeData.json */,
 			);
 			path = Resources;
@@ -349,6 +352,7 @@
 				64911CD325B147D4002E4818 /* recipeData.json in Resources */,
 				6497F4DD25BE4C8F00811986 /* GoogleService-Info.plist in Resources */,
 				648973CF25A50BC30049AB5B /* Preview Assets.xcassets in Resources */,
+				64A22DC425C78BA400D6569D /* top-1k-ingredients.csv in Resources */,
 				648973CC25A50BC30049AB5B /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

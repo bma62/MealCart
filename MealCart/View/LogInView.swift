@@ -71,6 +71,8 @@ struct LogInView: View {
                     Text(error)
                         .font(.caption2)
                         .foregroundColor(.red)
+                        // if the error is too long to display in one line, expand size vertically
+                        .fixedSize(horizontal: false, vertical: true)
                         .offset(y: -10)
                 }
                                 
@@ -113,5 +115,6 @@ struct LogIn_Previews: PreviewProvider {
             LogInView()
                 .environmentObject(SessionStore())
         }
+        
     }
 }

@@ -72,6 +72,8 @@ struct SignUpView: View {
                 Text(error)
                     .font(.caption2)
                     .foregroundColor(.red)
+                    // if the error is too long to display in one line, expand size vertically
+                    .fixedSize(horizontal: false, vertical: true)
                     .offset(y: -10)
             }
                             

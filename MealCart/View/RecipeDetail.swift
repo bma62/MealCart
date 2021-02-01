@@ -41,6 +41,7 @@ struct RecipeDetail: View {
                 Text("Instructions").tag("instructions")
             }
             .pickerStyle(SegmentedPickerStyle())
+            .padding(.horizontal)
             
             if displayMode == "ingredients" {
                 List {
@@ -54,7 +55,6 @@ struct RecipeDetail: View {
                 .listRowInsets(EdgeInsets())
 
             } else {
-                // TODO: this should be changed to analyzed instructions
                 List {
                     // because step is not Identifiable, use its number as id
                     ForEach(recipe.analyzedInstructions[0].steps, id: \.number) { step in
