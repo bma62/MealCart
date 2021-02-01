@@ -51,22 +51,9 @@ struct SignUpView: View {
                 .cornerRadius(25)
                 .padding(.bottom, 30)
             
-            TextField("Email", text: $email)
-                .keyboardType(.emailAddress)
-                .autocapitalization(.none)
-                .disableAutocorrection(true)
-                .padding()
-                .background(RoundedRectangle(cornerRadius: 25).strokeBorder())
-                .background(lightGrey)
-                .cornerRadius(25)
-                .padding(.bottom, 20)
+            EmailField(email: $email, backgroundColour: lightGrey)
             
-            SecureField("Password", text: $password)
-                .padding()
-                .background(RoundedRectangle(cornerRadius: 25).strokeBorder())
-                .background(lightGrey)
-                .cornerRadius(25)
-                .padding(.bottom, 20)
+            PasswordField(password: $password, backgroundColour: lightGrey)
             
             if (error != "") {
                 Text(error)
