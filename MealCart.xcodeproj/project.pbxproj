@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2E95183577885CF747EE85C9 /* Pods_MealCartTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37F0CC598804B9C634246215 /* Pods_MealCartTests.framework */; };
 		647CB60225C0CAB20071A91B /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647CB60125C0CAB20071A91B /* SignUpView.swift */; };
 		647CB61225C0CF4A0071A91B /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647CB61125C0CF4A0071A91B /* LogInView.swift */; };
 		647CB65D25C0D6FC0071A91B /* SessionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647CB65C25C0D6FC0071A91B /* SessionStore.swift */; };
@@ -29,8 +28,10 @@
 		64A22DC425C78BA400D6569D /* top-1k-ingredients.csv in Resources */ = {isa = PBXBuildFile; fileRef = 64A22DC325C78BA400D6569D /* top-1k-ingredients.csv */; };
 		64A22DCE25C8A5FD00D6569D /* EmailField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64A22DCD25C8A5FD00D6569D /* EmailField.swift */; };
 		64A22DD325C8A6B500D6569D /* PasswordField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64A22DD225C8A6B500D6569D /* PasswordField.swift */; };
-		903D029ED9798CB2DB1EECCD /* Pods_MealCart.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C839E93651321B7E353C6D71 /* Pods_MealCart.framework */; };
-		E341EE5063E1EDF97E2B8890 /* Pods_MealCart_MealCartUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1200FBC00951C19741921185 /* Pods_MealCart_MealCartUITests.framework */; };
+		64E7F34425C8FC970033BD26 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64E7F34325C8FC970033BD26 /* UserProfile.swift */; };
+		6DA751983EC713614F8B1268 /* Pods_MealCart_MealCartUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5BB3687521D979897BE6629 /* Pods_MealCart_MealCartUITests.framework */; };
+		793A88357847DA783FC09219 /* Pods_MealCart.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B99CC3A07525AA41341993D /* Pods_MealCart.framework */; };
+		A9AD7F0D624C4C09B71018B9 /* Pods_MealCartTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6719BAD727BD9FDB1C08B50 /* Pods_MealCartTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,12 +52,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		04C3DF3E1C4D118FDAC47EF0 /* Pods-MealCartTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MealCartTests.debug.xcconfig"; path = "Target Support Files/Pods-MealCartTests/Pods-MealCartTests.debug.xcconfig"; sourceTree = "<group>"; };
-		1200FBC00951C19741921185 /* Pods_MealCart_MealCartUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MealCart_MealCartUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		344D6A4D47C108BE26976143 /* Pods-MealCart-MealCartUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MealCart-MealCartUITests.release.xcconfig"; path = "Target Support Files/Pods-MealCart-MealCartUITests/Pods-MealCart-MealCartUITests.release.xcconfig"; sourceTree = "<group>"; };
-		347427F3F87F299A27562833 /* Pods-MealCartTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MealCartTests.release.xcconfig"; path = "Target Support Files/Pods-MealCartTests/Pods-MealCartTests.release.xcconfig"; sourceTree = "<group>"; };
-		37F0CC598804B9C634246215 /* Pods_MealCartTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MealCartTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		38755CA3D6B3D367813DA792 /* Pods-MealCart.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MealCart.release.xcconfig"; path = "Target Support Files/Pods-MealCart/Pods-MealCart.release.xcconfig"; sourceTree = "<group>"; };
+		1853E666109A09CFD91C0481 /* Pods-MealCart-MealCartUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MealCart-MealCartUITests.debug.xcconfig"; path = "Target Support Files/Pods-MealCart-MealCartUITests/Pods-MealCart-MealCartUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		2CF96279C45443F523947282 /* Pods-MealCart-MealCartUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MealCart-MealCartUITests.release.xcconfig"; path = "Target Support Files/Pods-MealCart-MealCartUITests/Pods-MealCart-MealCartUITests.release.xcconfig"; sourceTree = "<group>"; };
+		315C22A905F91591D82355A1 /* Pods-MealCart.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MealCart.release.xcconfig"; path = "Target Support Files/Pods-MealCart/Pods-MealCart.release.xcconfig"; sourceTree = "<group>"; };
+		43A8DACA24033D0A19C451F6 /* Pods-MealCartTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MealCartTests.debug.xcconfig"; path = "Target Support Files/Pods-MealCartTests/Pods-MealCartTests.debug.xcconfig"; sourceTree = "<group>"; };
 		647CB60125C0CAB20071A91B /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		647CB61125C0CF4A0071A91B /* LogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
 		647CB65C25C0D6FC0071A91B /* SessionStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionStore.swift; sourceTree = "<group>"; };
@@ -84,9 +83,12 @@
 		64A22DC325C78BA400D6569D /* top-1k-ingredients.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "top-1k-ingredients.csv"; sourceTree = "<group>"; };
 		64A22DCD25C8A5FD00D6569D /* EmailField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailField.swift; sourceTree = "<group>"; };
 		64A22DD225C8A6B500D6569D /* PasswordField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordField.swift; sourceTree = "<group>"; };
-		C839E93651321B7E353C6D71 /* Pods_MealCart.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MealCart.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D2EA6FF9D929A07FE6D37D8F /* Pods-MealCart-MealCartUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MealCart-MealCartUITests.debug.xcconfig"; path = "Target Support Files/Pods-MealCart-MealCartUITests/Pods-MealCart-MealCartUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		E28A3CF4EA79EB47257972AB /* Pods-MealCart.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MealCart.debug.xcconfig"; path = "Target Support Files/Pods-MealCart/Pods-MealCart.debug.xcconfig"; sourceTree = "<group>"; };
+		64E7F34325C8FC970033BD26 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
+		8B99CC3A07525AA41341993D /* Pods_MealCart.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MealCart.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9FE566447A9958404248AA71 /* Pods-MealCart.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MealCart.debug.xcconfig"; path = "Target Support Files/Pods-MealCart/Pods-MealCart.debug.xcconfig"; sourceTree = "<group>"; };
+		A5BB3687521D979897BE6629 /* Pods_MealCart_MealCartUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MealCart_MealCartUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B6719BAD727BD9FDB1C08B50 /* Pods_MealCartTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MealCartTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE02AAD5481925EFC8786C6A /* Pods-MealCartTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MealCartTests.release.xcconfig"; path = "Target Support Files/Pods-MealCartTests/Pods-MealCartTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,7 +96,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				903D029ED9798CB2DB1EECCD /* Pods_MealCart.framework in Frameworks */,
+				793A88357847DA783FC09219 /* Pods_MealCart.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -102,7 +104,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2E95183577885CF747EE85C9 /* Pods_MealCartTests.framework in Frameworks */,
+				A9AD7F0D624C4C09B71018B9 /* Pods_MealCartTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -110,7 +112,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E341EE5063E1EDF97E2B8890 /* Pods_MealCart_MealCartUITests.framework in Frameworks */,
+				6DA751983EC713614F8B1268 /* Pods_MealCart_MealCartUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -120,12 +122,12 @@
 		08990352674DAD57C5A6DF8E /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				E28A3CF4EA79EB47257972AB /* Pods-MealCart.debug.xcconfig */,
-				38755CA3D6B3D367813DA792 /* Pods-MealCart.release.xcconfig */,
-				D2EA6FF9D929A07FE6D37D8F /* Pods-MealCart-MealCartUITests.debug.xcconfig */,
-				344D6A4D47C108BE26976143 /* Pods-MealCart-MealCartUITests.release.xcconfig */,
-				04C3DF3E1C4D118FDAC47EF0 /* Pods-MealCartTests.debug.xcconfig */,
-				347427F3F87F299A27562833 /* Pods-MealCartTests.release.xcconfig */,
+				9FE566447A9958404248AA71 /* Pods-MealCart.debug.xcconfig */,
+				315C22A905F91591D82355A1 /* Pods-MealCart.release.xcconfig */,
+				1853E666109A09CFD91C0481 /* Pods-MealCart-MealCartUITests.debug.xcconfig */,
+				2CF96279C45443F523947282 /* Pods-MealCart-MealCartUITests.release.xcconfig */,
+				43A8DACA24033D0A19C451F6 /* Pods-MealCartTests.debug.xcconfig */,
+				CE02AAD5481925EFC8786C6A /* Pods-MealCartTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -138,7 +140,7 @@
 				648973E325A50BC40049AB5B /* MealCartUITests */,
 				648973C525A50BC30049AB5B /* Products */,
 				08990352674DAD57C5A6DF8E /* Pods */,
-				E4718C585298925459CD9257 /* Frameworks */,
+				C23ADA311ED27696D94BC34E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -213,6 +215,7 @@
 				64911CD725B14828002E4818 /* ModelData.swift */,
 				647CB65C25C0D6FC0071A91B /* SessionStore.swift */,
 				647CB66325C10EA60071A91B /* User.swift */,
+				64E7F34325C8FC970033BD26 /* UserProfile.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -237,12 +240,12 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
-		E4718C585298925459CD9257 /* Frameworks */ = {
+		C23ADA311ED27696D94BC34E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				C839E93651321B7E353C6D71 /* Pods_MealCart.framework */,
-				1200FBC00951C19741921185 /* Pods_MealCart_MealCartUITests.framework */,
-				37F0CC598804B9C634246215 /* Pods_MealCartTests.framework */,
+				8B99CC3A07525AA41341993D /* Pods_MealCart.framework */,
+				A5BB3687521D979897BE6629 /* Pods_MealCart_MealCartUITests.framework */,
+				B6719BAD727BD9FDB1C08B50 /* Pods_MealCartTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -254,11 +257,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 648973E925A50BC40049AB5B /* Build configuration list for PBXNativeTarget "MealCart" */;
 			buildPhases = (
-				A1561832E6B57906E73B7CC2 /* [CP] Check Pods Manifest.lock */,
+				D0DFFE4F74A005F12B160F1D /* [CP] Check Pods Manifest.lock */,
 				648973C025A50BC30049AB5B /* Sources */,
 				648973C125A50BC30049AB5B /* Frameworks */,
 				648973C225A50BC30049AB5B /* Resources */,
-				668ECF26CE79E07F2587762F /* [CP] Embed Pods Frameworks */,
+				F342908710225E53EA0CE907 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -273,7 +276,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 648973EC25A50BC40049AB5B /* Build configuration list for PBXNativeTarget "MealCartTests" */;
 			buildPhases = (
-				455399C230AC559B232375A3 /* [CP] Check Pods Manifest.lock */,
+				A77F92897502E4D3DE464B2A /* [CP] Check Pods Manifest.lock */,
 				648973D125A50BC40049AB5B /* Sources */,
 				648973D225A50BC40049AB5B /* Frameworks */,
 				648973D325A50BC40049AB5B /* Resources */,
@@ -292,11 +295,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 648973EF25A50BC40049AB5B /* Build configuration list for PBXNativeTarget "MealCartUITests" */;
 			buildPhases = (
-				FBD92A03B91A48AFDE926DBD /* [CP] Check Pods Manifest.lock */,
+				6612D16327EF0F9BE52B5AB7 /* [CP] Check Pods Manifest.lock */,
 				648973DC25A50BC40049AB5B /* Sources */,
 				648973DD25A50BC40049AB5B /* Frameworks */,
 				648973DE25A50BC40049AB5B /* Resources */,
-				B6B91FD85091A6A5D87CD4AE /* [CP] Embed Pods Frameworks */,
+				2914E9696F8E84478BD2F66A /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -380,68 +383,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		455399C230AC559B232375A3 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-MealCartTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		668ECF26CE79E07F2587762F /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MealCart/Pods-MealCart-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MealCart/Pods-MealCart-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MealCart/Pods-MealCart-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A1561832E6B57906E73B7CC2 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-MealCart-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B6B91FD85091A6A5D87CD4AE /* [CP] Embed Pods Frameworks */ = {
+		2914E9696F8E84478BD2F66A /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -458,7 +400,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MealCart-MealCartUITests/Pods-MealCart-MealCartUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		FBD92A03B91A48AFDE926DBD /* [CP] Check Pods Manifest.lock */ = {
+		6612D16327EF0F9BE52B5AB7 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -480,6 +422,67 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		A77F92897502E4D3DE464B2A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MealCartTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D0DFFE4F74A005F12B160F1D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MealCart-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F342908710225E53EA0CE907 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MealCart/Pods-MealCart-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MealCart/Pods-MealCart-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MealCart/Pods-MealCart-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -489,6 +492,7 @@
 			files = (
 				6489B0EA25B0D23A00A07B94 /* RecipeDetail.swift in Sources */,
 				64911CE125B380BF002E4818 /* FavouriteButton.swift in Sources */,
+				64E7F34425C8FC970033BD26 /* UserProfile.swift in Sources */,
 				64A22DB925C35DCA00D6569D /* ContentView.swift in Sources */,
 				648973CA25A50BC30049AB5B /* HomeScreen.swift in Sources */,
 				648973C825A50BC30049AB5B /* MealCartApp.swift in Sources */,
@@ -654,7 +658,7 @@
 		};
 		648973EA25A50BC40049AB5B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E28A3CF4EA79EB47257972AB /* Pods-MealCart.debug.xcconfig */;
+			baseConfigurationReference = 9FE566447A9958404248AA71 /* Pods-MealCart.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -677,7 +681,7 @@
 		};
 		648973EB25A50BC40049AB5B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 38755CA3D6B3D367813DA792 /* Pods-MealCart.release.xcconfig */;
+			baseConfigurationReference = 315C22A905F91591D82355A1 /* Pods-MealCart.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -700,7 +704,7 @@
 		};
 		648973ED25A50BC40049AB5B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 04C3DF3E1C4D118FDAC47EF0 /* Pods-MealCartTests.debug.xcconfig */;
+			baseConfigurationReference = 43A8DACA24033D0A19C451F6 /* Pods-MealCartTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -723,7 +727,7 @@
 		};
 		648973EE25A50BC40049AB5B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 347427F3F87F299A27562833 /* Pods-MealCartTests.release.xcconfig */;
+			baseConfigurationReference = CE02AAD5481925EFC8786C6A /* Pods-MealCartTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -746,7 +750,7 @@
 		};
 		648973F025A50BC40049AB5B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D2EA6FF9D929A07FE6D37D8F /* Pods-MealCart-MealCartUITests.debug.xcconfig */;
+			baseConfigurationReference = 1853E666109A09CFD91C0481 /* Pods-MealCart-MealCartUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -767,7 +771,7 @@
 		};
 		648973F125A50BC40049AB5B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 344D6A4D47C108BE26976143 /* Pods-MealCart-MealCartUITests.release.xcconfig */;
+			baseConfigurationReference = 2CF96279C45443F523947282 /* Pods-MealCart-MealCartUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;

@@ -25,6 +25,8 @@ class SessionStore: ObservableObject {
     
     var handle: AuthStateDidChangeListenerHandle?
     
+    private var profileViewModel = UserProfileViewModel()
+    
     // MARK: Handler Functions
     
     /// Monitors authentication state changes

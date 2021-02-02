@@ -7,7 +7,9 @@
 
 import Foundation
 
-// more profile settings can be added later
+/*
+ This struct conforms to Firebase Authentication
+ */
 struct User {
     var uid: String
     var email: String?
