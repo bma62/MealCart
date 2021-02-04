@@ -15,6 +15,8 @@ struct LogInView: View {
     
     @EnvironmentObject var session: SessionStore
     
+    @State var profile: UserProfile?
+    
     @State var email = ""
     @State var password = ""
     @State var error = ""
@@ -22,7 +24,7 @@ struct LogInView: View {
     // MARK: Log In Function
     
     func logIn() {
-        session.logIn(email: email, password: password) { (result, error) in
+        session.logIn(email: email, password: password) { (profile, error) in
             // if the error is not nil, read the error message
             if let error = error {
                 self.error = error.localizedDescription
@@ -31,6 +33,7 @@ struct LogInView: View {
                 self.email = ""
                 self.password = ""
                 self.error = ""
+                self.profile = profile
             }
         }
     }

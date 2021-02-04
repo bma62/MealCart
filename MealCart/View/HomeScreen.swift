@@ -39,9 +39,7 @@ struct HomeScreen: View {
                 }
                 .tag(Tab.favourites)
             
-            Button(action: session.logOut) {
-                Text("Log Out")
-            }
+            SettingsView(userProfile: session.profile ?? UserProfile(uid: "TEST1234", email: "test@mail.com"))
                 .tabItem {
                     Label("Settings", systemImage: "gearshape")
                 }

@@ -23,9 +23,11 @@ class SessionStore: ObservableObject {
         }
     }
     
-    var handle: AuthStateDidChangeListenerHandle?
+    @Published var profile: UserProfile?
     
     private var profileViewModel = UserProfileViewModel()
+    
+    var handle: AuthStateDidChangeListenerHandle?
     
     // MARK: Handler Functions
     
@@ -59,22 +61,62 @@ class SessionStore: ObservableObject {
     
     // MARK: Authentication Functions
     
-    // After the function has completed, get the auth result
-    func signUp(email: String, password: String, handler: @escaping AuthDataResultCallback) {
-        // Call the handler when the authentication has been done
-        Auth.auth().createUser(withEmail: email, password: password, completion: handler)
+    func signUp(email: String, password: String, completion: @escaping (_ profile: UserProfile?, _ error: Error?) -> Void) {
+        Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
+            if let error = error {
+                print("Error signing up \(error)")
+                completion(nil, error)
+                return
+            }
+            
+            guard let user = result?.user else { return }
+            print("User \(user.uid) successfully signed up.")
+            
+            let userProfile = UserProfile(uid: user.uid, email: email)
+            
+            self.profileViewModel.createProfile(profile: userProfile) { (profile, error) in
+                if let error = error {
+                    print("Error creating user profile in Firestore \(error)")
+                    completion(nil, error)
+                    return
+                }
+                self.profile = profile
+                completion(profile, nil)
+            }
+        }
     }
-    
-    func logIn(email: String, password: String, handler: @escaping AuthDataResultCallback) {
-        Auth.auth().signIn(withEmail: email, password: password, completion: handler)
+
+    func logIn(email: String, password: String, completion: @escaping (_ profile: UserProfile?, _ error: Error?) -> Void) {
+        Auth.auth().signIn(withEmail: email, password: password) { (result, error) in
+            if let error = error {
+                print("Error loging in \(error)")
+                completion(nil, error)
+                return
+            }
+            
+            guard let user = result?.user else { return }
+            print("User \(user.uid) successfully logged in.")
+            
+            self.profileViewModel.fetchProfile(userId: user.uid) { (profile, error) in
+                if let error = error {
+                    print("Error fetching user profile from Firestore \(error)")
+                    completion(nil, error)
+                    return
+                }
+                
+                self.profile = profile
+                completion(profile, nil)
+            }
+        }
     }
     
     func logOut() {
         do {
             try Auth.auth().signOut()
             self.session = nil
+            self.profile = nil
         } catch {
-            fatalError("Error loging out")
+            print("Error loging out \(error)")
         }
     }
 }
