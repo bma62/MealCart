@@ -13,7 +13,6 @@ import FirebaseFirestoreSwift
 struct UserProfile: Codable {
     var uid: String
     var email: String
-    
 }
 
 class UserProfileViewModel: ObservableObject {

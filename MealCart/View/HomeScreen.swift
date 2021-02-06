@@ -33,12 +33,13 @@ struct HomeScreen: View {
                 }
                 .tag(Tab.shoppingList)
             
-            Text("Favourites Page")
+            FavouritesView()
                 .tabItem {
                     Label("Favourites", systemImage: "heart.fill")
                 }
                 .tag(Tab.favourites)
             
+            // in case a user doesn't have profile, show some default contents
             SettingsView(userProfile: session.profile ?? UserProfile(uid: "TEST1234", email: "test@mail.com"))
                 .tabItem {
                     Label("Settings", systemImage: "gearshape")
