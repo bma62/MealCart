@@ -21,7 +21,7 @@ struct HomeScreen: View {
     
     var body: some View {
         TabView(selection: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Selection@*/.constant(1)/*@END_MENU_TOKEN@*/) {
-            Text("Meal Plan Page")
+            MealPlanHome(recipes: modelData.recipeData.recipes)
                 .tabItem {
                     Label("Meal Plan", systemImage: "calendar")
                 }

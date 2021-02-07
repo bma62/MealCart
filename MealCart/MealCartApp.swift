@@ -26,6 +26,7 @@ struct MealCartApp: App {
         WindowGroup {
             ContentView()
                 .environmentObject(session)
+                .environmentObject(modelData)
 //            RecipeDetail(recipe: modelData.recipeData.recipes[0])
 //                .environmentObject(modelData)
         }
