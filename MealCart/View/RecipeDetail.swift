@@ -8,19 +8,13 @@
 import SwiftUI
 
 struct RecipeDetail: View {
-    @EnvironmentObject var modelData: ModelData
-    var recipe: Recipe
     
-    var recipeIndex: Int {
-        // this provides an optional but we know there will be exactly one match, so force it to unwrap
-        // compute the index of the input recipe by comparing with model data
-        modelData.recipeData.recipes.firstIndex(where: { $0.id == recipe.id })!
-    }
+    var recipe: Recipe
     
     @State private var displayMode = "ingredients"
     
     var body: some View {
-        VStack {
+        ScrollView {
             recipe.recipeImage
                 .aspectRatio(contentMode: .fill)
                 .frame(height: 300)
@@ -36,37 +30,37 @@ struct RecipeDetail: View {
             Divider()
                 .offset(y: -5)
             
+            // 2 option tags for the picker to show different lists
             Picker("Menu", selection: $displayMode) {
-                Text("Ingredients").tag("ingredients")
-                Text("Instructions").tag("instructions")
+                Text("Ingredients")
+                    .tag("ingredients")
+                Text("Instructions")
+                    .tag("instructions")
             }
             .pickerStyle(SegmentedPickerStyle())
             .padding(.horizontal)
             
-            if displayMode == "ingredients" {
-                List {
+            VStack (alignment: .leading, spacing: 15) {
+                if displayMode == "ingredients" {
                     ForEach(recipe.extendedIngredients) { ingredient in
-                        // display each ingredient and get rid of decimal points
-//                        Text("\(String(ingredient.amount)) \(ingredient.unit) \(ingredient.name)")
+                        // display each ingredient - use original string instead of units and amounts to avoid cases like 0.3333 cup butter
                         Text(ingredient.originalString)
+                        Divider()
                     }
-                }
-                // set edge insets to 0 so content extends to the edges of the display
-                .listRowInsets(EdgeInsets())
-
-            } else {
-                List {
+                } else {
                     // because step is not Identifiable, use its number as id
                     ForEach(recipe.analyzedInstructions[0].steps, id: \.number) { step in
                         Text("\(step.number). \(step.step)")
+                        Divider()
                     }
                 }
-                .listRowInsets(EdgeInsets())
             }
+            .padding(.horizontal, 30)
+            .lineLimit(nil)
+            .offset(y: 5)
         }
         .navigationTitle(recipe.title)
         .navigationBarTitleDisplayMode(.inline)
-        .listStyle(InsetListStyle())
     }
 }
 
@@ -76,7 +70,6 @@ struct RecipeDetail_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             RecipeDetail(recipe: modelData.recipeData.recipes[3])
-                .environmentObject(modelData)
         }
     }
 }
