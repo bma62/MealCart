@@ -16,15 +16,14 @@ struct RecipeDetail: View {
     var body: some View {
         ScrollView {
             recipe.recipeImage
-                .aspectRatio(contentMode: .fill)
-                .frame(height: 300)
+                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
+                .scaledToFit()
             
             HStack {
                 Text(recipe.title)
                     .font(.title)
-                    .padding(.leading)
                 // the favourite property hasn't been connected to data model yet
-                FavouriteButton(isSet: .constant(true))
+//                FavouriteButton(isSet: .constant(true))
             }
             
             Divider()
@@ -41,22 +40,31 @@ struct RecipeDetail: View {
             .padding(.horizontal)
             
             VStack (alignment: .leading, spacing: 15) {
+                
                 if displayMode == "ingredients" {
+                    
                     ForEach(recipe.extendedIngredients) { ingredient in
                         // display each ingredient - use original string instead of units and amounts to avoid cases like 0.3333 cup butter
                         Text(ingredient.originalString)
                         Divider()
                     }
                 } else {
-                    // because step is not Identifiable, use its number as id
-                    ForEach(recipe.analyzedInstructions[0].steps, id: \.number) { step in
-                        Text("\(step.number). \(step.step)")
-                        Divider()
+                    
+                    // add a test in case instructions array is empty
+                    if !recipe.analyzedInstructions.isEmpty {
+                        // because step is not Identifiable, use its number as id
+                        ForEach(recipe.analyzedInstructions[0].steps, id: \.number) { step in
+                            Text("\(step.number). \(step.step)")
+                            Divider()
+                        }
+                    } else {
+                        Text("Instruction Not Available")
                     }
                 }
             }
-            .padding(.horizontal, 30)
+            .padding(.horizontal)
             .lineLimit(nil)
+            .fixedSize(horizontal: false, vertical: true) // added this to fix when text is too long, it turns into ... at the end
             .offset(y: 5)
         }
         .navigationTitle(recipe.title)
@@ -69,7 +77,7 @@ struct RecipeDetail_Previews: PreviewProvider {
     
     static var previews: some View {
         NavigationView {
-            RecipeDetail(recipe: modelData.recipeData.recipes[3])
+            RecipeDetail(recipe: modelData.recipeData.recipes[1])
         }
     }
 }

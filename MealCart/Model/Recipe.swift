@@ -26,6 +26,7 @@ struct Recipe: Hashable, Codable, Identifiable {
     var servings: Int
     var readyInMinutes: Int
 
+    // Note: after inspecting more API recipes, it seems some have empty instructions
     var analyzedInstructions: [AnalyzedInstructions]
     
     struct AnalyzedInstructions: Codable, Hashable {
@@ -37,7 +38,6 @@ struct Recipe: Hashable, Codable, Identifiable {
         }
     }
     
-    var instructions: String
     var extendedIngredients: [Ingredient]
     
     // this is not part of the API response, but we need this to distinguish the user's favourite recipes
