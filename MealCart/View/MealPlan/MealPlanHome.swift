@@ -15,18 +15,39 @@ struct MealPlanHome: View {
         GridItem(.flexible(minimum: 50, maximum: 200))
     ]
     
+    @State private var showingNewMealPlan = false
+    
     var body: some View {
         NavigationView {
-            ScrollView {
-                LazyVGrid(columns: layout, spacing: 16) {
-                    ForEach(recipes, id: \.self) { recipe in
-                        NavigationLink(destination: RecipeDetail(recipe: recipe)) {
-                            MealPlanItem(recipe: recipe)
+            VStack {
+                ScrollView {
+                    LazyVGrid(columns: layout, spacing: 16) {
+                        ForEach(recipes, id: \.self) { recipe in
+                            NavigationLink(destination: RecipeDetail(recipe: recipe)) {
+                                MealPlanItem(recipe: recipe)
+                            }
                         }
                     }
+                    .padding(.horizontal, 12)
                 }
-                .padding(.horizontal, 12)
-            }.navigationTitle("Meal Plan")
+                
+                Button(action: { showingNewMealPlan.toggle() }) {
+                    Text("Start New Meal Plan")
+                        .font(.title2)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.white)
+                        .frame(width: 220, height: 50)
+                        .background(Color.blue)
+                        .cornerRadius(10)
+                }
+            }
+            .navigationTitle("Meal Plan")
+//            .fullScreenCover(isPresented: $showingNewMealPlan) {
+//                NewMealPlan()
+//            }
+            .sheet(isPresented: $showingNewMealPlan) {
+                NewMealPlan()
+            }
         }
     }
 }
