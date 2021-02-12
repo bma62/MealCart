@@ -40,6 +40,7 @@ struct MealPlanHome: View {
                         .background(Color.blue)
                         .cornerRadius(10)
                 }
+                .padding(.bottom)
             }
             .navigationTitle("Meal Plan")
 //            .fullScreenCover(isPresented: $showingNewMealPlan) {
