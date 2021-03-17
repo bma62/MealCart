@@ -34,6 +34,7 @@
 		64E7F35425CF66C70033BD26 /* MealPlanItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64E7F35325CF66C70033BD26 /* MealPlanItem.swift */; };
 		64E7F36025CF6CEB0033BD26 /* MealPlanHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64E7F35F25CF6CEB0033BD26 /* MealPlanHome.swift */; };
 		64E7F36525D210330033BD26 /* NewMealPlan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64E7F36425D210320033BD26 /* NewMealPlan.swift */; };
+		64FF4EC3260196F900172B83 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64FF4EC2260196F900172B83 /* Constants.swift */; };
 		6DA751983EC713614F8B1268 /* Pods_MealCart_MealCartUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5BB3687521D979897BE6629 /* Pods_MealCart_MealCartUITests.framework */; };
 		793A88357847DA783FC09219 /* Pods_MealCart.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B99CC3A07525AA41341993D /* Pods_MealCart.framework */; };
 		A9AD7F0D624C4C09B71018B9 /* Pods_MealCartTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6719BAD727BD9FDB1C08B50 /* Pods_MealCartTests.framework */; };
@@ -94,6 +95,7 @@
 		64E7F35325CF66C70033BD26 /* MealPlanItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealPlanItem.swift; sourceTree = "<group>"; };
 		64E7F35F25CF6CEB0033BD26 /* MealPlanHome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealPlanHome.swift; sourceTree = "<group>"; };
 		64E7F36425D210320033BD26 /* NewMealPlan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMealPlan.swift; sourceTree = "<group>"; };
+		64FF4EC2260196F900172B83 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		8B99CC3A07525AA41341993D /* Pods_MealCart.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MealCart.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FE566447A9958404248AA71 /* Pods-MealCart.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MealCart.debug.xcconfig"; path = "Target Support Files/Pods-MealCart/Pods-MealCart.debug.xcconfig"; sourceTree = "<group>"; };
 		A5BB3687521D979897BE6629 /* Pods_MealCart_MealCartUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MealCart_MealCartUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -249,6 +251,7 @@
 				64911CE025B380BF002E4818 /* FavouriteButton.swift */,
 				64A22DCD25C8A5FD00D6569D /* EmailField.swift */,
 				64A22DD225C8A6B500D6569D /* PasswordField.swift */,
+				64FF4EC2260196F900172B83 /* Constants.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -514,6 +517,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				64E7F36525D210330033BD26 /* NewMealPlan.swift in Sources */,
+				64FF4EC3260196F900172B83 /* Constants.swift in Sources */,
 				6489B0EA25B0D23A00A07B94 /* RecipeDetail.swift in Sources */,
 				64911CE125B380BF002E4818 /* FavouriteButton.swift in Sources */,
 				64E7F34E25CE16F90033BD26 /* FavouritesView.swift in Sources */,

@@ -10,10 +10,7 @@ import SwiftUI
 struct MealPlanHome: View {
     var recipes: [Recipe]
     
-    let layout = [
-        GridItem(.flexible(minimum: 50, maximum: 200), spacing: 16, alignment: .top),
-        GridItem(.flexible(minimum: 50, maximum: 200))
-    ]
+    let layout = Constants.viewLayout.twoColumnGrid;
     
     @State private var showingNewMealPlan = false
     
@@ -47,7 +44,7 @@ struct MealPlanHome: View {
 //                NewMealPlan()
 //            }
             .sheet(isPresented: $showingNewMealPlan) {
-                NewMealPlan()
+                NewMealPlan(displayedRecipes: recipes)
             }
         }
     }
