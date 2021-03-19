@@ -39,7 +39,6 @@ struct NewMealPlan: View {
                                             }
                                         }) {
                                             Image(systemName: addedRecipes.contains(recipe) ? "checkmark.circle.fill" : "plus.circle.fill")
-                                            //                .foregroundColor(.gray)
                                         }
                                         .scaleEffect(1.7, anchor: .topTrailing), alignment: .topTrailing)
                             }
@@ -48,12 +47,13 @@ struct NewMealPlan: View {
                     .padding(.horizontal, 12)
                 }
                 
-                NavigationLink(destination: Text("view added meals")) {
+                NavigationLink(destination: Text("view added meals"), label: {
                     Spacer()
                     Image(systemName: "cart.fill")
                         .font(.title)
+                        .overlay(BadgeNumberLabel(addedRecipes: $addedRecipes), alignment: .topTrailing)
                         .padding(.all)
-                }
+                })
             }
         }
         
@@ -70,3 +70,22 @@ struct NewMealPlan_Previews: PreviewProvider {
         }
     }
 }
+
+struct BadgeNumberLabel: View {
+    @Binding var addedRecipes: [Recipe]
+    
+    var body: some View {
+        let badgeCount = addedRecipes.count
+        
+        ZStack {
+            Circle()
+                .foregroundColor(.red)
+
+            Text("\(badgeCount)")
+                .foregroundColor(.white)
+        }
+        .frame(width: 20, height: 20)
+        .opacity(badgeCount == 0 ? 0 : 1.0) // Hide the badge if no recipe has been added
+    }
+}
+
