@@ -47,10 +47,10 @@ struct NewMealPlan: View {
                     .padding(.horizontal, 12)
                 }
                 
-                NavigationLink(destination: Text("view added meals"), label: {
+                NavigationLink(destination: ViewAddedMeals(addedRecipes: addedRecipes), label: {
                     Spacer()
                     Image(systemName: "cart.fill")
-                        .font(.title)
+                        .font(.largeTitle)
                         .overlay(BadgeNumberLabel(addedRecipes: $addedRecipes), alignment: .topTrailing)
                         .padding(.all)
                 })
