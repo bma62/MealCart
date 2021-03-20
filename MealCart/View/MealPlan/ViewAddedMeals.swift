@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ViewAddedMeals: View {
-    var addedRecipes: [Recipe]
+    @Binding var addedRecipes: [Recipe]
     
     var body: some View {
         NavigationView {
@@ -20,18 +20,24 @@ struct ViewAddedMeals: View {
                             AddedMealRow(recipe: recipe)
                         })
                 }
+                .onDelete(perform: { indexSet in
+                    addedRecipes.remove(atOffsets: indexSet)
+                })
+            }
+            .navigationTitle("Review your meals")
+            .toolbar {
+                EditButton()
             }
         }
-        .navigationTitle("Review your meals")
     }
 }
 
 struct ViewAddedMeals_Previews: PreviewProvider {
-    static var recipes = ModelData().recipeData.recipes
+    @State static var recipes = ModelData().recipeData.recipes
     
     static var previews: some View {
         NavigationView {
-            ViewAddedMeals(addedRecipes: recipes)
+            ViewAddedMeals(addedRecipes: $recipes)
         }
     }
 }
