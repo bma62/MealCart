@@ -9,21 +9,18 @@ import SwiftUI
 
 struct NewMealPlan: View {
     @Environment(\.presentationMode) var presentationMode
-
-    var displayedRecipes: [Recipe] // New recipes to show on the page
+    
+    //    var displayedRecipes: [Recipe] // New recipes to show on the page
+    @EnvironmentObject var modelData: ModelData
+    
     @State var addedRecipes: [Recipe] = [] //Recipes the user decides to add
     
     var body: some View {
         NavigationView {
             VStack {
-                Button("Dismiss"){
-                    presentationMode.wrappedValue.dismiss()
-                }
-                .edgesIgnoringSafeArea(.all)
-                
                 ScrollView {
                     LazyVGrid(columns: Constants.viewLayout.twoColumnGrid, spacing: 16) {
-                        ForEach(displayedRecipes, id: \.self) { recipe in
+                        ForEach(modelData.recipeData.recipes) { recipe in
                             
                             NavigationLink(destination: RecipeDetail(recipe: recipe)) {
                                 MealPlanItem(recipe: recipe)
@@ -54,6 +51,29 @@ struct NewMealPlan: View {
                         .overlay(BadgeNumberLabel(addedRecipes: $addedRecipes), alignment: .topTrailing)
                         .padding(.all)
                 })
+                
+                Button(action: {
+                    // Pass added recipes back to home page
+                    modelData.recipeData.recipes = addedRecipes
+                    presentationMode.wrappedValue.dismiss()
+                }) {
+                    Text("Finish")
+                        .font(.title2)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.white)
+                        .frame(width: 220, height: 50)
+                        .background(Color.blue)
+                        .cornerRadius(10)
+                }
+            }
+            .navigationTitle("Add Meals")
+            
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction, content: {
+                    Button("Dismiss"){
+                        presentationMode.wrappedValue.dismiss()}
+                })
+                
             }
         }
         
@@ -61,16 +81,7 @@ struct NewMealPlan: View {
     }
 }
 
-struct NewMealPlan_Previews: PreviewProvider {
-    static var recipes = ModelData().recipeData.recipes
-    
-    static var previews: some View {
-        NavigationView {
-            NewMealPlan(displayedRecipes: Array(recipes.prefix(5)))
-        }
-    }
-}
-
+// MARK: A badge to show number of added meals on shopping cart 
 struct BadgeNumberLabel: View {
     @Binding var addedRecipes: [Recipe]
     
@@ -80,7 +91,7 @@ struct BadgeNumberLabel: View {
         ZStack {
             Circle()
                 .foregroundColor(.red)
-
+            
             Text("\(badgeCount)")
                 .foregroundColor(.white)
         }
@@ -88,4 +99,17 @@ struct BadgeNumberLabel: View {
         .opacity(badgeCount == 0 ? 0 : 1.0) // Hide the badge if no recipe has been added
     }
 }
+
+struct NewMealPlan_Previews: PreviewProvider {
+    //    static var recipes = ModelData().recipeData.recipes
+    static let modelData = ModelData()
+    
+    static var previews: some View {
+        NavigationView {
+            NewMealPlan()
+                .environmentObject(modelData)
+        }
+    }
+}
+
 

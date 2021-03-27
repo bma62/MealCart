@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct MealPlanHome: View {
-    var recipes: [Recipe]
-    
+//    var recipes: [Recipe]
+    @EnvironmentObject var modelData: ModelData
+
     let layout = Constants.viewLayout.twoColumnGrid;
     
     @State private var showingNewMealPlan = false
@@ -19,7 +20,7 @@ struct MealPlanHome: View {
             VStack {
                 ScrollView {
                     LazyVGrid(columns: layout, spacing: 16) {
-                        ForEach(recipes, id: \.self) { recipe in
+                        ForEach(modelData.recipeData.recipes) { recipe in
                             NavigationLink(destination: RecipeDetail(recipe: recipe)) {
                                 MealPlanItem(recipe: recipe)
                             }
@@ -40,20 +41,19 @@ struct MealPlanHome: View {
                 .padding(.bottom)
             }
             .navigationTitle("Meal Plan")
-//            .fullScreenCover(isPresented: $showingNewMealPlan) {
-//                NewMealPlan()
-//            }
-            .sheet(isPresented: $showingNewMealPlan) {
-                NewMealPlan(displayedRecipes: recipes)
+            .fullScreenCover(isPresented: $showingNewMealPlan) {
+                NewMealPlan()
             }
         }
     }
 }
 
 struct MealPlanHome_Previews: PreviewProvider {
-    static var recipes = ModelData().recipeData.recipes
-    
+//    static var recipes = ModelData().recipeData.recipes
+    static let modelData = ModelData()
+
     static var previews: some View {
-        MealPlanHome(recipes: Array(recipes.prefix(5)))
+        MealPlanHome()
+            .environmentObject(modelData)
     }
 }

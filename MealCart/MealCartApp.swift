@@ -27,8 +27,6 @@ struct MealCartApp: App {
             ContentView()
                 .environmentObject(session)
                 .environmentObject(modelData)
-//            RecipeDetail(recipe: modelData.recipeData.recipes[0])
-//                .environmentObject(modelData)
         }
     }
 }

@@ -21,7 +21,7 @@ struct HomeScreen: View {
     
     var body: some View {
         TabView(selection: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Selection@*/.constant(1)/*@END_MENU_TOKEN@*/) {
-            MealPlanHome(recipes: modelData.recipeData.recipes)
+            MealPlanHome()
                 .tabItem {
                     Label("Meal Plan", systemImage: "calendar")
                 }
@@ -40,7 +40,7 @@ struct HomeScreen: View {
                 .tag(Tab.favourites)
             
             // in case a user doesn't have profile, show some default contents
-            SettingsView(userProfile: session.profile ?? UserProfile(uid: "TEST1234", email: "test@mail.com"))
+            SettingsView(userProfile: session.profile ?? UserProfile(uid: "TEST1234", email: "test@gmail.com"))
                 .tabItem {
                     Label("Settings", systemImage: "gearshape")
                 }

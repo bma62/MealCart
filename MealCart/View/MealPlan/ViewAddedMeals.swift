@@ -12,19 +12,22 @@ struct ViewAddedMeals: View {
     
     var body: some View {
         NavigationView {
-            List {
-                ForEach(addedRecipes, id: \.self) { recipe in
-                    NavigationLink(
-                        destination: RecipeDetail(recipe: recipe),
-                        label: {
-                            AddedMealRow(recipe: recipe)
-                        })
+            VStack {
+                List {
+                    ForEach(addedRecipes, id: \.self) { recipe in
+                        NavigationLink(
+                            destination: RecipeDetail(recipe: recipe),
+                            label: {
+                                AddedMealRow(recipe: recipe)
+                            })
+                    }
+                    .onDelete(perform: { indexSet in
+                        addedRecipes.remove(atOffsets: indexSet)
+                    })
                 }
-                .onDelete(perform: { indexSet in
-                    addedRecipes.remove(atOffsets: indexSet)
-                })
             }
             .navigationTitle("Review your meals")
+            
             .toolbar {
                 EditButton()
             }
