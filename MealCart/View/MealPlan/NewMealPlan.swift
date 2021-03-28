@@ -44,13 +44,25 @@ struct NewMealPlan: View {
                     .padding(.horizontal, 12)
                 }
                 
-                NavigationLink(destination: ViewAddedMeals(addedRecipes: $addedRecipes), label: {
+                HStack {
+                    Button(action: {
+                        SpoonacularAPI().getRandomRecipes { (recipes) in
+                            apiRecipes = recipes
+                        }
+                    }) {
+                        Image(systemName: "arrow.clockwise")
+                            .font(.largeTitle)
+                            .padding(.all)
+                    }
                     Spacer()
-                    Image(systemName: "cart.fill")
-                        .font(.largeTitle)
-                        .overlay(BadgeNumberLabel(addedRecipes: $addedRecipes), alignment: .topTrailing)
-                        .padding(.all)
-                })
+                    
+                    NavigationLink(destination: ViewAddedMeals(addedRecipes: $addedRecipes), label: {
+                        Image(systemName: "cart.fill")
+                            .font(.largeTitle)
+                            .overlay(BadgeNumberLabel(addedRecipes: $addedRecipes), alignment: .topTrailing)
+                            .padding(.all)
+                    })
+                }
                 
                 Button(action: {
                     // Pass added recipes back to home page
