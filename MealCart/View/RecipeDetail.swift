@@ -23,7 +23,7 @@ struct RecipeDetail: View {
                 Text(recipe.title)
                     .font(.title)
                 // the favourite property hasn't been connected to data model yet
-//                FavouriteButton(isSet: .constant(true))
+                //                FavouriteButton(isSet: .constant(true))
             }
             
             Divider()
@@ -42,24 +42,32 @@ struct RecipeDetail: View {
             VStack (alignment: .leading, spacing: 15) {
                 
                 if displayMode == "ingredients" {
-                    
-                    ForEach(recipe.extendedIngredients) { ingredient in
-                        // display each ingredient - use original string instead of units and amounts to avoid cases like 0.3333 cup butter
-                        Text(ingredient.originalString)
-                        Divider()
-                    }
-                } else {
-                    
-                    // add a test in case instructions array is empty
-                    if !recipe.analyzedInstructions.isEmpty {
-                        // because step is not Identifiable, use its number as id
-                        ForEach(recipe.analyzedInstructions[0].steps, id: \.number) { step in
-                            Text("\(step.number). \(step.step)")
+                    if let ingredients = recipe.extendedIngredients {
+                        ForEach(ingredients) { ingredient in
+                            // display each ingredient - use original string instead of units and amounts to avoid cases like 0.3333 cup butter
+                            Text(ingredient.originalString)
                             Divider()
+                        }
+                    } else {
+                        Text("Ingredients Not Available")
+                    }
+                    
+                } else {
+                    if let instructions = recipe.analyzedInstructions {
+                        // add a test in case instructions array is empty
+                        if !instructions.isEmpty {
+                            // because step is not Identifiable, use its number as id
+                            ForEach(instructions[0].steps, id: \.number) { step in
+                                Text("\(step.number). \(step.step)")
+                                Divider()
+                            }
+                        } else {
+                            Text("Instruction Not Available")
                         }
                     } else {
                         Text("Instruction Not Available")
                     }
+                    
                 }
             }
             .padding(.horizontal)

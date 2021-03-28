@@ -10,7 +10,7 @@ import SwiftUI
 struct NewMealPlan: View {
     @Environment(\.presentationMode) var presentationMode
     
-    //    var displayedRecipes: [Recipe] // New recipes to show on the page
+    @State var apiRecipes: [Recipe] = [] // New recipes to show on the page
     @EnvironmentObject var modelData: ModelData
     
     @State var addedRecipes: [Recipe] = [] //Recipes the user decides to add
@@ -20,7 +20,7 @@ struct NewMealPlan: View {
             VStack {
                 ScrollView {
                     LazyVGrid(columns: Constants.viewLayout.twoColumnGrid, spacing: 16) {
-                        ForEach(modelData.recipeData.recipes) { recipe in
+                        ForEach(apiRecipes) { recipe in
                             
                             NavigationLink(destination: RecipeDetail(recipe: recipe)) {
                                 MealPlanItem(recipe: recipe)
@@ -76,8 +76,12 @@ struct NewMealPlan: View {
                 
             }
         }
-        
-        
+        // Query API and get some randome recipes
+        .onAppear {
+            SpoonacularAPI().getRandomRecipes { (recipes) in
+                apiRecipes = recipes
+            }
+        }
     }
 }
 
