@@ -9,6 +9,9 @@ import SwiftUI
 
 struct NewMealPlan: View {
     @Environment(\.presentationMode) var presentationMode
+    #warning("TEST FOR FIRESTORE")
+    @ObservedObject var mealPlanViewModel = FirestoreMealPlanViewModel()
+
     
     @State var apiRecipes: [Recipe] = [] // New recipes to show on the page
     @EnvironmentObject var modelData: ModelData
@@ -67,6 +70,8 @@ struct NewMealPlan: View {
                 Button(action: {
                     // Pass added recipes back to home page
                     modelData.recipeData.recipes = addedRecipes
+                    #warning("TEST FOR FIRESTORE")
+                    mealPlanViewModel.addMealPlan(recipes: addedRecipes)
                     presentationMode.wrappedValue.dismiss()
                 }) {
                     Text("Finish")
@@ -82,8 +87,11 @@ struct NewMealPlan: View {
             
             .toolbar {
                 ToolbarItem(placement: .cancellationAction, content: {
-                    Button("Dismiss"){
-                        presentationMode.wrappedValue.dismiss()}
+                    Button(action: {
+                        presentationMode.wrappedValue.dismiss()
+                    }, label: {
+                        Image(systemName: "xmark")
+                    })
                 })
                 
             }

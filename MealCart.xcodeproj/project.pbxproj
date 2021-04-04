@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		647BA8A02619502A009BD64B /* FirestoreMealPlan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647BA89F2619502A009BD64B /* FirestoreMealPlan.swift */; };
 		647CB60225C0CAB20071A91B /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647CB60125C0CAB20071A91B /* SignUpView.swift */; };
 		647CB61225C0CF4A0071A91B /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647CB61125C0CF4A0071A91B /* LogInView.swift */; };
 		647CB65D25C0D6FC0071A91B /* SessionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647CB65C25C0D6FC0071A91B /* SessionStore.swift */; };
@@ -64,6 +65,7 @@
 		2CF96279C45443F523947282 /* Pods-MealCart-MealCartUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MealCart-MealCartUITests.release.xcconfig"; path = "Target Support Files/Pods-MealCart-MealCartUITests/Pods-MealCart-MealCartUITests.release.xcconfig"; sourceTree = "<group>"; };
 		315C22A905F91591D82355A1 /* Pods-MealCart.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MealCart.release.xcconfig"; path = "Target Support Files/Pods-MealCart/Pods-MealCart.release.xcconfig"; sourceTree = "<group>"; };
 		43A8DACA24033D0A19C451F6 /* Pods-MealCartTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MealCartTests.debug.xcconfig"; path = "Target Support Files/Pods-MealCartTests/Pods-MealCartTests.debug.xcconfig"; sourceTree = "<group>"; };
+		647BA89F2619502A009BD64B /* FirestoreMealPlan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreMealPlan.swift; sourceTree = "<group>"; };
 		647CB60125C0CAB20071A91B /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		647CB61125C0CF4A0071A91B /* LogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
 		647CB65C25C0D6FC0071A91B /* SessionStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionStore.swift; sourceTree = "<group>"; };
@@ -231,6 +233,7 @@
 			isa = PBXGroup;
 			children = (
 				6489B0EF25B0D27900A07B94 /* Recipe.swift */,
+				647BA89F2619502A009BD64B /* FirestoreMealPlan.swift */,
 				64911CD725B14828002E4818 /* ModelData.swift */,
 				647CB65C25C0D6FC0071A91B /* SessionStore.swift */,
 				647CB66325C10EA60071A91B /* User.swift */,
@@ -529,6 +532,7 @@
 				64911CE125B380BF002E4818 /* FavouriteButton.swift in Sources */,
 				64E7F34E25CE16F90033BD26 /* FavouritesView.swift in Sources */,
 				64E7F34425C8FC970033BD26 /* UserProfile.swift in Sources */,
+				647BA8A02619502A009BD64B /* FirestoreMealPlan.swift in Sources */,
 				64E7F36025CF6CEB0033BD26 /* MealPlanHome.swift in Sources */,
 				64A22DB925C35DCA00D6569D /* ContentView.swift in Sources */,
 				648973CA25A50BC30049AB5B /* HomeScreen.swift in Sources */,

@@ -9,6 +9,8 @@ import SwiftUI
 
 struct MealPlanHome: View {
 //    var recipes: [Recipe]
+    #warning("TEST FOR FIRESTORE")
+    @ObservedObject var mealPlanViewModel = FirestoreMealPlanViewModel()
     @EnvironmentObject var modelData: ModelData
 
     let layout = Constants.viewLayout.twoColumnGrid;
@@ -43,6 +45,13 @@ struct MealPlanHome: View {
             .navigationTitle("Meal Plan")
             .fullScreenCover(isPresented: $showingNewMealPlan) {
                 NewMealPlan()
+            }
+        }
+        .onAppear() {
+            mealPlanViewModel.fetchData()
+            modelData.recipeData.recipes = []
+            mealPlanViewModel.mealPlan.forEach { (firestoreMealPlan) in
+                modelData.recipeData.recipes.append(firestoreMealPlan.recipe)
             }
         }
     }
