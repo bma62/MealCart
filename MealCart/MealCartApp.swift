@@ -19,14 +19,10 @@ struct MealCartApp: App {
     
     // use StateObject to initialize a model object only once during the life time of the app
     // on contrast, ObservedObject is used only if that object is discarded after each use
-    @StateObject private var modelData = ModelData()
-    @StateObject private var session = SessionStore()
     
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environmentObject(session)
-                .environmentObject(modelData)
         }
     }
 }

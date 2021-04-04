@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
-    @EnvironmentObject var session: SessionStore
+    @ObservedObject private var session = SessionStore()
+    @ObservedObject private var mealPlanViewModel = FirestoreMealPlanViewModel()
     
     func getUser() {
         session.listen()
@@ -18,8 +19,12 @@ struct ContentView: View {
         Group {
             if (session.session != nil) {
                 HomeScreen()
+                    .environmentObject(session)
+                    .environmentObject(mealPlanViewModel)
             } else {
                 LogInView()
+                    .environmentObject(session)
+                    .environmentObject(mealPlanViewModel)
             }
         }.onAppear(perform: {
             getUser()
@@ -30,6 +35,5 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
-            .environmentObject(SessionStore())
     }
 }

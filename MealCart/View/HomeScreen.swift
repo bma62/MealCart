@@ -8,9 +8,8 @@
 import SwiftUI
 
 struct HomeScreen: View {
-    @EnvironmentObject var modelData: ModelData
     @EnvironmentObject var session: SessionStore
-//    var recipe: Recipe
+    @EnvironmentObject var mealPlanViewModel: FirestoreMealPlanViewModel
     
     enum Tab {
         case mealPan
@@ -46,18 +45,21 @@ struct HomeScreen: View {
                 }
                 .tag(Tab.settings)
         }
+        .onAppear(){
+            mealPlanViewModel.fetchData(userId: session.profile!.uid)
+        }
     }
 }
 
 struct HomeScreen_Previews: PreviewProvider {
-    static let modelData = ModelData()
     static let session = SessionStore()
+    static let mealPlanViewModel = FirestoreMealPlanViewModel()
     
     static var previews: some View {
         Group {
             HomeScreen()
-                .environmentObject(modelData)
                 .environmentObject(session)
+                .environmentObject(mealPlanViewModel)
         }
     }
 }

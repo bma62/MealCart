@@ -18,28 +18,30 @@ struct FirestoreMealPlan: Identifiable, Codable {
 
 class FirestoreMealPlanViewModel: ObservableObject {
     @Published var mealPlan = [FirestoreMealPlan]()
+    @Published var mealPlanRecipes = [Recipe]()
     
     private var db = Firestore.firestore()
-    private var userId = SessionStore().profile?.uid ?? "Test User ID"
     
     // Fetch the logged-in user's meal plan
-    func fetchData() {
-        
+    func fetchData(userId: String) {
+
         db.collection("mealPlans")
             .whereField("userId", isEqualTo: userId)
-            .addSnapshotListener { (querySnapshot, error) in
-                guard let documents = querySnapshot?.documents else {
-                    print("No documents")
-                    return
-                }
-                self.mealPlan = documents.compactMap { queryDocumentSnapshot -> FirestoreMealPlan? in
-                    return try? queryDocumentSnapshot.data(as: FirestoreMealPlan.self)
+            .addSnapshotListener { querySnapshot, error in
+                if let querySnapshot = querySnapshot {
+                    self.mealPlan = querySnapshot.documents.compactMap { document -> FirestoreMealPlan? in
+                        try? document.data(as: FirestoreMealPlan.self)
+                    }
+                    self.mealPlanRecipes = [] 
+                    self.mealPlan.forEach { (firestoreMealPlan) in
+                        self.mealPlanRecipes.append(firestoreMealPlan.recipe)
+                    }
                 }
             }
     }
     
     // Add the user's meal plan to Firestore
-    func addMealPlan(recipes: [Recipe]) {
+    func addMealPlan(recipes: [Recipe], userId: String) {
 
         recipes.forEach { (recipe) in
             let userMealPlan = FirestoreMealPlan(recipe: recipe, userId: userId)
@@ -54,8 +56,8 @@ class FirestoreMealPlanViewModel: ObservableObject {
     }
     
     // Remove a user's meal plan
-    func removeTask() {
-        
+    func removeMealPlan(userId: String) {
+
         db.collection("mealPlans")
             .whereField("userId", isEqualTo: userId)
             .getDocuments { (querySnapshot, err) in

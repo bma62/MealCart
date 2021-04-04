@@ -8,10 +8,9 @@
 import SwiftUI
 
 struct MealPlanHome: View {
-//    var recipes: [Recipe]
+
     #warning("TEST FOR FIRESTORE")
-    @ObservedObject var mealPlanViewModel = FirestoreMealPlanViewModel()
-    @EnvironmentObject var modelData: ModelData
+    @EnvironmentObject var mealPlanViewModel : FirestoreMealPlanViewModel
 
     let layout = Constants.viewLayout.twoColumnGrid;
     
@@ -22,7 +21,7 @@ struct MealPlanHome: View {
             VStack {
                 ScrollView {
                     LazyVGrid(columns: layout, spacing: 16) {
-                        ForEach(modelData.recipeData.recipes) { recipe in
+                        ForEach(mealPlanViewModel.mealPlanRecipes) { recipe in
                             NavigationLink(destination: RecipeDetail(recipe: recipe)) {
                                 MealPlanItem(recipe: recipe)
                             }
@@ -48,21 +47,17 @@ struct MealPlanHome: View {
             }
         }
         .onAppear() {
-            mealPlanViewModel.fetchData()
-            modelData.recipeData.recipes = []
-            mealPlanViewModel.mealPlan.forEach { (firestoreMealPlan) in
-                modelData.recipeData.recipes.append(firestoreMealPlan.recipe)
-            }
+//            mealPlanViewModel.fetchData()
         }
     }
 }
 
 struct MealPlanHome_Previews: PreviewProvider {
-//    static var recipes = ModelData().recipeData.recipes
-    static let modelData = ModelData()
+    
+    static let mealPlanViewModel = FirestoreMealPlanViewModel()
 
     static var previews: some View {
         MealPlanHome()
-            .environmentObject(modelData)
+            .environmentObject(mealPlanViewModel)
     }
 }

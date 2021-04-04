@@ -10,12 +10,10 @@ import SwiftUI
 struct NewMealPlan: View {
     @Environment(\.presentationMode) var presentationMode
     #warning("TEST FOR FIRESTORE")
-    @ObservedObject var mealPlanViewModel = FirestoreMealPlanViewModel()
-
+    @EnvironmentObject var mealPlanViewModel: FirestoreMealPlanViewModel
+    @EnvironmentObject var session: SessionStore
     
     @State var apiRecipes: [Recipe] = [] // New recipes to show on the page
-    @EnvironmentObject var modelData: ModelData
-    
     @State var addedRecipes: [Recipe] = [] //Recipes the user decides to add
     
     var body: some View {
@@ -69,9 +67,10 @@ struct NewMealPlan: View {
                 
                 Button(action: {
                     // Pass added recipes back to home page
-                    modelData.recipeData.recipes = addedRecipes
+                    mealPlanViewModel.mealPlanRecipes = addedRecipes
                     #warning("TEST FOR FIRESTORE")
-                    mealPlanViewModel.addMealPlan(recipes: addedRecipes)
+                    mealPlanViewModel.removeMealPlan(userId: session.profile!.uid)
+                    mealPlanViewModel.addMealPlan(recipes: addedRecipes, userId: session.profile!.uid)
                     presentationMode.wrappedValue.dismiss()
                 }) {
                     Text("Finish")
@@ -125,13 +124,13 @@ struct BadgeNumberLabel: View {
 }
 
 struct NewMealPlan_Previews: PreviewProvider {
-    //    static var recipes = ModelData().recipeData.recipes
-    static let modelData = ModelData()
+
+    static let mealPlanViewModel = FirestoreMealPlanViewModel()
     
     static var previews: some View {
         NavigationView {
             NewMealPlan()
-                .environmentObject(modelData)
+                .environmentObject(mealPlanViewModel)
         }
     }
 }

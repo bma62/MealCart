@@ -17,13 +17,13 @@ class SessionStore: ObservableObject {
     var didChange = PassthroughSubject<SessionStore, Never>()
     
     // Right after the session is updated, send signal to downstream subscribers as well
-    @Published var session: User? {
+    @Published var session: User? = nil {
         didSet {
             self.didChange.send(self)
         }
     }
     
-    @Published var profile: UserProfile?
+    @Published var profile: UserProfile? = nil
     
     private var profileViewModel = UserProfileViewModel()
     
@@ -50,6 +50,7 @@ class SessionStore: ObservableObject {
     // Stop listening to auth change handler
     func unbind () {
         if let handle = handle {
+            print("*********I AM CALLED**********")
             Auth.auth().removeStateDidChangeListener(handle)
         }
     }
