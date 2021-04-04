@@ -39,10 +39,12 @@ class SessionStore: ObservableObject {
                 // if we have a user, create a new user model
                 print("Got user: \(user)")
                 self.session = User(uid: user.uid, email: user.email, displayName: user.displayName)
+                self.profile = UserProfile(uid: user.uid, email: user.email!)
             }
             else {
                 // if we don't have a user, set session to nil
                 self.session = nil
+                self.profile = nil
             }
         })
     }
@@ -50,7 +52,6 @@ class SessionStore: ObservableObject {
     // Stop listening to auth change handler
     func unbind () {
         if let handle = handle {
-            print("*********I AM CALLED**********")
             Auth.auth().removeStateDidChangeListener(handle)
         }
     }
