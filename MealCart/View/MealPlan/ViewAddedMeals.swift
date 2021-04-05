@@ -16,7 +16,7 @@ struct ViewAddedMeals: View {
                 List {
                     ForEach(addedRecipes, id: \.self) { recipe in
                         NavigationLink(
-                            destination: RecipeDetail(recipe: recipe),
+                            destination: RecipeDetail(recipe: recipe, showFavouriteButton: false, isFavourite: .constant(false)),
                             label: {
                                 AddedMealRow(recipe: recipe)
                             })

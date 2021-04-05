@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		647BA8A02619502A009BD64B /* FirestoreMealPlan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647BA89F2619502A009BD64B /* FirestoreMealPlan.swift */; };
+		647BA8C7261A9EF7009BD64B /* RecipeDetailWithFavouriteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647BA8C6261A9EF7009BD64B /* RecipeDetailWithFavouriteButton.swift */; };
 		647CB60225C0CAB20071A91B /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647CB60125C0CAB20071A91B /* SignUpView.swift */; };
 		647CB61225C0CF4A0071A91B /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647CB61125C0CF4A0071A91B /* LogInView.swift */; };
 		647CB65D25C0D6FC0071A91B /* SessionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647CB65C25C0D6FC0071A91B /* SessionStore.swift */; };
@@ -66,6 +67,7 @@
 		315C22A905F91591D82355A1 /* Pods-MealCart.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MealCart.release.xcconfig"; path = "Target Support Files/Pods-MealCart/Pods-MealCart.release.xcconfig"; sourceTree = "<group>"; };
 		43A8DACA24033D0A19C451F6 /* Pods-MealCartTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MealCartTests.debug.xcconfig"; path = "Target Support Files/Pods-MealCartTests/Pods-MealCartTests.debug.xcconfig"; sourceTree = "<group>"; };
 		647BA89F2619502A009BD64B /* FirestoreMealPlan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreMealPlan.swift; sourceTree = "<group>"; };
+		647BA8C6261A9EF7009BD64B /* RecipeDetailWithFavouriteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailWithFavouriteButton.swift; sourceTree = "<group>"; };
 		647CB60125C0CAB20071A91B /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		647CB61125C0CF4A0071A91B /* LogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
 		647CB65C25C0D6FC0071A91B /* SessionStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionStore.swift; sourceTree = "<group>"; };
@@ -222,6 +224,7 @@
 				64A22DB825C35DCA00D6569D /* ContentView.swift */,
 				64E7F34D25CE16F90033BD26 /* FavouritesView.swift */,
 				6489B0E925B0D23A00A07B94 /* RecipeDetail.swift */,
+				647BA8C6261A9EF7009BD64B /* RecipeDetailWithFavouriteButton.swift */,
 				647CB60125C0CAB20071A91B /* SignUpView.swift */,
 				647CB61125C0CF4A0071A91B /* LogInView.swift */,
 				64E7F34825CC86B10033BD26 /* SettingsView.swift */,
@@ -549,6 +552,7 @@
 				64A22DD325C8A6B500D6569D /* PasswordField.swift in Sources */,
 				64911CD825B14828002E4818 /* ModelData.swift in Sources */,
 				647CB66425C10EA60071A91B /* User.swift in Sources */,
+				647BA8C7261A9EF7009BD64B /* RecipeDetailWithFavouriteButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,7 +9,6 @@ import SwiftUI
 
 struct MealPlanHome: View {
 
-    #warning("TEST FOR FIRESTORE")
     @EnvironmentObject var mealPlanViewModel : FirestoreMealPlanViewModel
 
     let layout = Constants.viewLayout.twoColumnGrid;
@@ -22,7 +21,7 @@ struct MealPlanHome: View {
                 ScrollView {
                     LazyVGrid(columns: layout, spacing: 16) {
                         ForEach(mealPlanViewModel.mealPlanRecipes) { recipe in
-                            NavigationLink(destination: RecipeDetail(recipe: recipe)) {
+                            NavigationLink(destination: RecipeDetail(recipe: recipe, showFavouriteButton: true, isFavourite: .constant(false))) {
                                 MealPlanItem(recipe: recipe)
                             }
                         }

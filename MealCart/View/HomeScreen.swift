@@ -46,7 +46,7 @@ struct HomeScreen: View {
                 .tag(Tab.settings)
         }
         .onAppear(){
-            mealPlanViewModel.fetchData(userId: session.profile!.uid)
+            mealPlanViewModel.fetchMealPlan(userId: session.profile!.uid)
         }
     }
 }

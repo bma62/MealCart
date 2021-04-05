@@ -9,7 +9,6 @@ import SwiftUI
 
 struct NewMealPlan: View {
     @Environment(\.presentationMode) var presentationMode
-    #warning("TEST FOR FIRESTORE")
     @EnvironmentObject var mealPlanViewModel: FirestoreMealPlanViewModel
     @EnvironmentObject var session: SessionStore
     
@@ -23,7 +22,7 @@ struct NewMealPlan: View {
                     LazyVGrid(columns: Constants.viewLayout.twoColumnGrid, spacing: 16) {
                         ForEach(apiRecipes) { recipe in
                             
-                            NavigationLink(destination: RecipeDetail(recipe: recipe)) {
+                            NavigationLink(destination: RecipeDetail(recipe: recipe, showFavouriteButton: false, isFavourite: .constant(false))) {
                                 MealPlanItem(recipe: recipe)
                                     .overlay(
                                         Button(action: {
@@ -68,7 +67,7 @@ struct NewMealPlan: View {
                 Button(action: {
                     // Pass added recipes back to home page
                     mealPlanViewModel.mealPlanRecipes = addedRecipes
-                    #warning("TEST FOR FIRESTORE")
+                    mealPlanViewModel.generateMealPlan(userId: session.profile!.uid) //TODO: test favourites
                     mealPlanViewModel.removeMealPlan(userId: session.profile!.uid)
                     mealPlanViewModel.addMealPlan(recipes: addedRecipes, userId: session.profile!.uid)
                     presentationMode.wrappedValue.dismiss()

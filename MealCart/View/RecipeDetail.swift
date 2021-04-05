@@ -10,6 +10,8 @@ import SwiftUI
 struct RecipeDetail: View {
     
     var recipe: Recipe
+    var showFavouriteButton: Bool
+    @Binding var isFavourite: Bool
     
     @State private var displayMode = "ingredients"
     
@@ -22,8 +24,9 @@ struct RecipeDetail: View {
             HStack {
                 Text(recipe.title)
                     .font(.title)
-                // the favourite property hasn't been connected to data model yet
-                //                FavouriteButton(isSet: .constant(true))
+                if (showFavouriteButton) {
+                    FavouriteButton(isSet: $isFavourite)
+                }
             }
             
             Divider()
@@ -85,7 +88,7 @@ struct RecipeDetail_Previews: PreviewProvider {
     
     static var previews: some View {
         NavigationView {
-            RecipeDetail(recipe: modelData.recipeData.recipes[1])
+            RecipeDetail(recipe: modelData.recipeData.recipes[1], showFavouriteButton: true, isFavourite: .constant(false))
         }
     }
 }
