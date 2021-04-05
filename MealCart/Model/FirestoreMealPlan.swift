@@ -44,11 +44,9 @@ class FirestoreMealPlanViewModel: ObservableObject {
     }
     
     // Add the user's meal plan to Firestore
-    func addMealPlan(recipes: [Recipe], userId: String) {
+    func addMealPlan(userId: String) {
 
-        recipes.forEach { (recipe) in
-            // TODO: update this to use firestore array 
-            let userMealPlan = FirestoreMealPlan(userId: userId, isFavourite: false, recipe: recipe)
+        mealPlan.forEach { (userMealPlan) in
             do {
                 let _ = try db.collection("mealPlans").addDocument(from: userMealPlan)
             }

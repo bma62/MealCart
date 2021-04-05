@@ -69,7 +69,7 @@ struct NewMealPlan: View {
                     mealPlanViewModel.mealPlanRecipes = addedRecipes
                     mealPlanViewModel.generateMealPlan(userId: session.profile!.uid) //TODO: test favourites
                     mealPlanViewModel.removeMealPlan(userId: session.profile!.uid)
-                    mealPlanViewModel.addMealPlan(recipes: addedRecipes, userId: session.profile!.uid)
+                    mealPlanViewModel.addMealPlan(userId: session.profile!.uid)
                     presentationMode.wrappedValue.dismiss()
                 }) {
                     Text("Finish")

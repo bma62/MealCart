@@ -20,9 +20,9 @@ struct MealPlanHome: View {
             VStack {
                 ScrollView {
                     LazyVGrid(columns: layout, spacing: 16) {
-                        ForEach(mealPlanViewModel.mealPlanRecipes) { recipe in
-                            NavigationLink(destination: RecipeDetail(recipe: recipe, showFavouriteButton: true, isFavourite: .constant(false))) {
-                                MealPlanItem(recipe: recipe)
+                        ForEach(mealPlanViewModel.mealPlan) { userMealPlan in
+                            NavigationLink(destination: RecipeDetailWithFavouriteButton(userMealPlan: userMealPlan)) {
+                                MealPlanItem(recipe: userMealPlan.recipe)
                             }
                         }
                     }
