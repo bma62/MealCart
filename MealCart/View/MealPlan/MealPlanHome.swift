@@ -8,9 +8,10 @@
 import SwiftUI
 
 struct MealPlanHome: View {
-
+    
+    @EnvironmentObject var session: SessionStore
     @EnvironmentObject var mealPlanViewModel : FirestoreMealPlanViewModel
-
+    
     let layout = Constants.viewLayout.twoColumnGrid;
     
     @State private var showingNewMealPlan = false
@@ -20,7 +21,7 @@ struct MealPlanHome: View {
             VStack {
                 ScrollView {
                     LazyVGrid(columns: layout, spacing: 16) {
-                        ForEach(mealPlanViewModel.mealPlan) { userMealPlan in
+                        ForEach(mealPlanViewModel.mealPlan, id: \.self) { userMealPlan in
                             NavigationLink(destination: RecipeDetailWithFavouriteButton(userMealPlan: userMealPlan)) {
                                 MealPlanItem(recipe: userMealPlan.recipe)
                             }
@@ -46,7 +47,9 @@ struct MealPlanHome: View {
             }
         }
         .onAppear() {
-//            mealPlanViewModel.fetchData()
+//            mealPlanViewModel.fetchMealPlan(userId: session.profile!.uid)
+            print("**********THE CURRENT MEALPLAN IS: \(mealPlanViewModel.mealPlan)*************")
+            #warning("remove")
         }
     }
 }
@@ -54,9 +57,10 @@ struct MealPlanHome: View {
 struct MealPlanHome_Previews: PreviewProvider {
     
     static let mealPlanViewModel = FirestoreMealPlanViewModel()
-
+    
     static var previews: some View {
         MealPlanHome()
             .environmentObject(mealPlanViewModel)
+            .environmentObject(SessionStore())
     }
 }

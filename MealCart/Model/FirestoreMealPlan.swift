@@ -15,6 +15,7 @@ struct FirestoreMealPlan: Identifiable, Hashable, Codable {
     var userId: String
     var isFavourite: Bool
     var recipe: Recipe
+    @ServerTimestamp var createdTime: Timestamp? // Let Firestore write server time to each document for ordering
 }
 
 class FirestoreMealPlanViewModel: ObservableObject {
@@ -31,15 +32,16 @@ class FirestoreMealPlanViewModel: ObservableObject {
         
         db.collection("mealPlans")
             .whereField("userId", isEqualTo: userId)
+            .order(by: "createdTime")
             .addSnapshotListener { querySnapshot, error in
                 if let querySnapshot = querySnapshot {
                     self.mealPlan = querySnapshot.documents.compactMap { document -> FirestoreMealPlan? in
                         try? document.data(as: FirestoreMealPlan.self)
                     }
-                    self.mealPlanRecipes = [] 
-                    self.mealPlan.forEach { (firestoreMealPlan) in
-                        self.mealPlanRecipes.append(firestoreMealPlan.recipe)
-                    }
+//                    self.mealPlanRecipes = []
+//                    self.mealPlan.forEach { (firestoreMealPlan) in
+//                        self.mealPlanRecipes.append(firestoreMealPlan.recipe)
+//                    }
                 }
             }
     }
@@ -55,12 +57,12 @@ class FirestoreMealPlanViewModel: ObservableObject {
                 fatalError("Unable to encode task: \(error.localizedDescription).")
             }
         }
-        
     }
     
-    // Remove a user's meal plan
-    func removeMealPlan(userId: String) {
+    // Update a user's meal plan with new added recipes
+    func updateMealPlan(userId: String) {
         
+        // First, remove current meal plans from the db
         db.collection("mealPlans")
             .whereField("userId", isEqualTo: userId)
             .getDocuments { (querySnapshot, err) in
@@ -70,6 +72,14 @@ class FirestoreMealPlanViewModel: ObservableObject {
                     for document in querySnapshot!.documents {
                         document.reference.delete()
                     }
+                    
+                    // Generate meal plans for Firestore with added recipes
+                    self.generateMealPlan(userId: userId)
+                    // After meal plans are generated, push them onto the db
+                    self.addMealPlan(userId: userId)
+                    self.mealPlanRecipes = []
+                    self.fetchMealPlan(userId: userId)
+                    #warning("remove")
                 }
             }
     }
@@ -152,6 +162,7 @@ class FirestoreMealPlanViewModel: ObservableObject {
         
         db.collection("favouriteRecipes")
             .whereField("userId", isEqualTo: userId)
+            .order(by: "createdTime")
             .addSnapshotListener { querySnapshot, error in
                 if let querySnapshot = querySnapshot {
                     self.favouriteMealPlan = querySnapshot.documents.compactMap { document -> FirestoreMealPlan? in
