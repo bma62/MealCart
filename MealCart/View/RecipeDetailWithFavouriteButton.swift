@@ -19,7 +19,7 @@ struct RecipeDetailWithFavouriteButton: View {
     }
     
     var body: some View {
-        RecipeDetail(recipe: userMealPlan.recipe, showFavouriteButton: true, isFavourite: $mealPlanViewModel.mealPlan[mealPlanIndex].isFavourite)
+        RecipeDetail(recipe: userMealPlan.recipe, showFavouriteButton: true, isFavourite: $mealPlanViewModel.mealPlan[mealPlanIndex].isFavourite, documentId: userMealPlan.id!)
     }
 }
 

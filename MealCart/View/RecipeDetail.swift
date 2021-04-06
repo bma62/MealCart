@@ -12,6 +12,7 @@ struct RecipeDetail: View {
     var recipe: Recipe
     var showFavouriteButton: Bool
     @Binding var isFavourite: Bool
+    var documentId: String = ""
     
     @State private var displayMode = "ingredients"
     
@@ -25,7 +26,7 @@ struct RecipeDetail: View {
                 Text(recipe.title)
                     .font(.title)
                 if (showFavouriteButton) {
-                    FavouriteButton(isSet: $isFavourite)
+                    FavouriteButton(isSet: $isFavourite, documentId: documentId)
                 }
             }
             

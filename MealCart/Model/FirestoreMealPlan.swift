@@ -27,7 +27,7 @@ class FirestoreMealPlanViewModel: ObservableObject {
     
     // Fetch the logged-in user's meal plan
     func fetchMealPlan(userId: String) {
-
+        
         db.collection("mealPlans")
             .whereField("userId", isEqualTo: userId)
             .addSnapshotListener { querySnapshot, error in
@@ -45,7 +45,7 @@ class FirestoreMealPlanViewModel: ObservableObject {
     
     // Add the user's meal plan to Firestore
     func addMealPlan(userId: String) {
-
+        
         mealPlan.forEach { (userMealPlan) in
             do {
                 let _ = try db.collection("mealPlans").addDocument(from: userMealPlan)
@@ -59,7 +59,7 @@ class FirestoreMealPlanViewModel: ObservableObject {
     
     // Remove a user's meal plan
     func removeMealPlan(userId: String) {
-
+        
         db.collection("mealPlans")
             .whereField("userId", isEqualTo: userId)
             .getDocuments { (querySnapshot, err) in
@@ -69,6 +69,17 @@ class FirestoreMealPlanViewModel: ObservableObject {
                     for document in querySnapshot!.documents {
                         document.reference.delete()
                     }
+                }
+            }
+    }
+    
+    // Update a user meal plan's isFavourite field
+    func updateMealPlanIsFavourite(documentId: String, isFavourite: Bool) {
+        db.collection("mealPlans").document(documentId).updateData(["isFavourite": isFavourite]) { err in
+                if let err = err {
+                    fatalError("Error updaing document: \(err)")
+                } else {
+                    print("Document updated")
                 }
             }
     }
