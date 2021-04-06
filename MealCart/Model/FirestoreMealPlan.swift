@@ -20,6 +20,7 @@ struct FirestoreMealPlan: Identifiable, Hashable, Codable {
 class FirestoreMealPlanViewModel: ObservableObject {
     @Published var mealPlan = [FirestoreMealPlan]()
     @Published var mealPlanRecipes = [Recipe]()
+    @Published var favouriteMealPlan = [FirestoreMealPlan]()
     
     private var db = Firestore.firestore()
     
@@ -64,7 +65,7 @@ class FirestoreMealPlanViewModel: ObservableObject {
             .whereField("userId", isEqualTo: userId)
             .getDocuments { (querySnapshot, err) in
                 if let err = err {
-                    print("Error getting documents: \(err.localizedDescription)")
+                    fatalError("Error getting documents: \(err.localizedDescription)")
                 } else {
                     for document in querySnapshot!.documents {
                         document.reference.delete()
@@ -109,7 +110,7 @@ class FirestoreMealPlanViewModel: ObservableObject {
                         .whereField("recipe.id", isEqualTo: userMealPlan!.recipe.id)
                         .getDocuments { (querySnapshot, err) in
                             if let err = err {
-                                print("Error getting documents: \(err.localizedDescription)")
+                                fatalError("Error getting documents: \(err.localizedDescription)")
                             } else {
                                 for document in querySnapshot!.documents {
                                     document.reference.delete()
@@ -124,13 +125,14 @@ class FirestoreMealPlanViewModel: ObservableObject {
     }
     
     // MARK: Favourite Recipes
+    
     // Generate meal plan for user-selected recipes
     func generateMealPlan(userId: String) {
         self.mealPlan = []
         var favouriteRecipes = [Recipe]()
         
         // Get a list of the user's favourite recipes
-        let favouriteMealPlan = fetchFavouriteMealPlan(userId: userId)
+        fetchFavouriteMealPlan(userId: userId)
         favouriteMealPlan.forEach { (favouriteMealPlan) in
             favouriteRecipes.append(favouriteMealPlan.recipe)
         }
@@ -145,21 +147,17 @@ class FirestoreMealPlanViewModel: ObservableObject {
         }
     }
     
-    func fetchFavouriteMealPlan(userId: String) -> [FirestoreMealPlan] {
-        var favouriteRecipes = [FirestoreMealPlan]()
+    // A function to fetch the logged-in user's favourite recipes
+    func fetchFavouriteMealPlan(userId: String) {
         
         db.collection("favouriteRecipes")
             .whereField("userId", isEqualTo: userId)
-            .getDocuments { (querySnapshot, err) in
-                if let err = err {
-                    print("Error getting documents: \(err.localizedDescription)")
-                } else {
-                    for document in querySnapshot!.documents {
-                        let userMealPlan = try? document.data(as: FirestoreMealPlan.self)
-                        favouriteRecipes.append(userMealPlan!)
+            .addSnapshotListener { querySnapshot, error in
+                if let querySnapshot = querySnapshot {
+                    self.favouriteMealPlan = querySnapshot.documents.compactMap { document -> FirestoreMealPlan? in
+                        try? document.data(as: FirestoreMealPlan.self)
                     }
                 }
             }
-        return favouriteRecipes
     }
 }

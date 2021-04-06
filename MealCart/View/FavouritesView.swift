@@ -11,31 +11,23 @@ struct FavouritesView: View {
     @EnvironmentObject var session: SessionStore
     @EnvironmentObject var mealPlanViewModel: FirestoreMealPlanViewModel
     
-    @State var favouriteRecipes = [FirestoreMealPlan]()
-    
     var body: some View {
-        VStack {
-            List{
-                ForEach(favouriteRecipes, id: \.self) { recipe in
-                    NavigationLink(
-                        destination: RecipeDetailWithFavouriteButton(userMealPlan: recipe),
-                        label: {
-                            AddedMealRow(recipe: recipe.recipe)
-                        })
+        NavigationView {
+            VStack {
+                List{
+                    ForEach(mealPlanViewModel.favouriteMealPlan, id: \.self) { mealPlan in
+                        NavigationLink(
+                            destination: RecipeDetail(recipe: mealPlan.recipe, showFavouriteButton: false, isFavourite: .constant(false)),
+                            label: {
+                                AddedMealRow(recipe: mealPlan.recipe)
+                            })
+                    }
                 }
             }
+            .navigationTitle("Favourite Recipes")
         }
-//        .onAppear() {
-//            favouriteRecipes = mealPlanViewModel.fetchFavouriteMealPlan(userId: session.profile!.uid)
-//        }
-    }
-    
-}
-
-struct FavouritesView_Previews: PreviewProvider {
-    static var previews: some View {
-        FavouritesView()
-            .environmentObject(SessionStore())
-            .environmentObject(FirestoreMealPlanViewModel())
+        .onAppear() {
+            mealPlanViewModel.fetchFavouriteMealPlan(userId: session.profile!.uid)
+        }
     }
 }
