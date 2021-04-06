@@ -10,7 +10,7 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 // Each document store under Firestore/mealPlans is composed of recipe information and userID
-struct FirestoreMealPlan: Identifiable, Codable {
+struct FirestoreMealPlan: Identifiable, Hashable, Codable {
     @DocumentID var id = UUID().uuidString // Get a uuid as document name
     var userId: String
     var isFavourite: Bool
@@ -75,13 +75,52 @@ class FirestoreMealPlanViewModel: ObservableObject {
     
     // Update a user meal plan's isFavourite field
     func updateMealPlanIsFavourite(documentId: String, isFavourite: Bool) {
-        db.collection("mealPlans").document(documentId).updateData(["isFavourite": isFavourite]) { err in
-                if let err = err {
-                    fatalError("Error updaing document: \(err)")
-                } else {
-                    print("Document updated")
-                }
+        
+        let mealPlanRef = db.collection("mealPlans").document(documentId)
+        
+        // Update field in the user's meal plan
+        mealPlanRef.updateData(["isFavourite": isFavourite]) { err in
+            if let err = err {
+                fatalError("Error updaing document: \(err)")
+            } else {
+                print("Document updated")
             }
+        }
+        
+        // Retrieve the specific meal plan
+        mealPlanRef.getDocument { (document, error) in
+            
+            if let document = document, document.exists {
+                // Decode the retrieved document
+                let userMealPlan = try? document.data(as: FirestoreMealPlan.self)
+                
+                // If the user marked the meal plan as favourite, it should be added to favouriteRecipes collection;
+                // Else, the user wants to remove this meal plan from favouriteRecipes collection
+                if isFavourite {
+                    do {
+                        let _ = try self.db.collection("favouriteRecipes").addDocument(from: userMealPlan)
+                    }
+                    catch {
+                        fatalError("Unable to encode task: \(error.localizedDescription).")
+                    }
+                } else {
+                    self.db.collection("favouriteRecipes")
+                        .whereField("userId", isEqualTo: userMealPlan!.userId)
+                        .whereField("recipe.id", isEqualTo: userMealPlan!.recipe.id)
+                        .getDocuments { (querySnapshot, err) in
+                            if let err = err {
+                                print("Error getting documents: \(err.localizedDescription)")
+                            } else {
+                                for document in querySnapshot!.documents {
+                                    document.reference.delete()
+                                }
+                            }
+                        }
+                }
+            } else {
+                fatalError("Document does not exist")
+            }
+        }
     }
     
     // MARK: Favourite Recipes
@@ -111,10 +150,13 @@ class FirestoreMealPlanViewModel: ObservableObject {
         
         db.collection("favouriteRecipes")
             .whereField("userId", isEqualTo: userId)
-            .addSnapshotListener { querySnapshot, error in
-                if let querySnapshot = querySnapshot {
-                    favouriteRecipes = querySnapshot.documents.compactMap { document -> FirestoreMealPlan? in
-                        try? document.data(as: FirestoreMealPlan.self)
+            .getDocuments { (querySnapshot, err) in
+                if let err = err {
+                    print("Error getting documents: \(err.localizedDescription)")
+                } else {
+                    for document in querySnapshot!.documents {
+                        let userMealPlan = try? document.data(as: FirestoreMealPlan.self)
+                        favouriteRecipes.append(userMealPlan!)
                     }
                 }
             }
