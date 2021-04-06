@@ -160,4 +160,21 @@ class FirestoreMealPlanViewModel: ObservableObject {
                 }
             }
     }
+    
+    // A function to update local changes to Firestore
+    func removeFavouriteMealPlan(favouriteMealPlan: FirestoreMealPlan) {
+        
+        // If the removed favourite meal plan is in the user's currently meal plan, its field and db document need to be updated too
+        if let currentMealPlan = mealPlan.first(where: {$0.recipe == favouriteMealPlan.recipe}) {
+            updateMealPlanIsFavourite(documentId: currentMealPlan.id!, isFavourite: false)
+        }
+        
+        db.collection("favouriteRecipes").document(favouriteMealPlan.id!).delete() { err in
+            if let err = err {
+                print("Error removing document: \(err)")
+            } else {
+                print("Document removed")
+            }
+        }
+    }
 }
