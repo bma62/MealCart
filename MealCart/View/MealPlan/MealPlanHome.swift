@@ -21,9 +21,14 @@ struct MealPlanHome: View {
                 ScrollView {
                     LazyVGrid(columns: layout, spacing: 16) {
                         ForEach(mealPlanViewModel.mealPlan) { userMealPlan in
-                            NavigationLink(destination: RecipeDetailWithFavouriteButton(userMealPlan: userMealPlan)) {
-                                MealPlanItem(recipe: userMealPlan.recipe)
-                            }
+                            
+                            // Compute the index of this meal plan in view model
+                            let mealPlanIndex = mealPlanViewModel.mealPlan.firstIndex(where: { $0.id == userMealPlan.id })!
+                            NavigationLink(
+                                destination: RecipeDetail(recipe: userMealPlan.recipe, showFavouriteButton: true, isFavourite: $mealPlanViewModel.mealPlan[mealPlanIndex].isFavourite, documentId: userMealPlan.id!),
+                                label: {
+                                    MealPlanItem(recipe: userMealPlan.recipe)
+                                })
                         }
                     }
                     .padding(.horizontal, 12)
@@ -44,9 +49,6 @@ struct MealPlanHome: View {
             .fullScreenCover(isPresented: $showingNewMealPlan) {
                 NewMealPlan()
             }
-        }
-        .onAppear() {
-            //            mealPlanViewModel.fetchMealPlan(userId: session.profile!.uid)
         }
     }
 }
