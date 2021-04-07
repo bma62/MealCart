@@ -34,21 +34,30 @@ struct MealPlanHome: View {
                     .padding(.horizontal, 12)
                 }
                 
-                Button(action: { showingNewMealPlan.toggle() }) {
-                    Text("Start New Meal Plan")
-                        .font(.title2)
-                        .fontWeight(.semibold)
-                        .foregroundColor(.white)
-                        .frame(width: 220, height: 50)
-                        .background(Color.blue)
-                        .cornerRadius(10)
-                }
-                .padding(.bottom)
+                // Start new meal plan button 
+                NavigationLink(
+                    destination: NewMealPlan(isActive: $showingNewMealPlan),
+                    isActive: self.$showingNewMealPlan,
+                    label: {
+                        Button(action: { showingNewMealPlan.toggle() }) {
+                            Text("Start New Meal Plan")
+                                .font(.title2)
+                                .fontWeight(.semibold)
+                                .foregroundColor(.white)
+                                .frame(width: 220, height: 50)
+                                .background(Color.blue)
+                                .cornerRadius(10)
+                        }
+                        .padding(.bottom)
+                    })
             }
             .navigationTitle("Meal Plan")
-            .fullScreenCover(isPresented: $showingNewMealPlan) {
-                NewMealPlan()
-            }
+            //            .fullScreenCover(isPresented: $showingNewMealPlan) {
+            //                NewMealPlan()
+            //            }
+        }
+        .onAppear(){
+            print("HOME APPEARED")
         }
     }
 }

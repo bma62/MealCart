@@ -9,9 +9,10 @@
 import SwiftUI
 
 struct NewMealPlan: View {
-    @Environment(\.presentationMode) var presentationMode
+    //    @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var mealPlanViewModel: FirestoreMealPlanViewModel
     @EnvironmentObject var session: SessionStore
+    @Binding var isActive: Bool // Binding to trigger going back to home screen
     
     @State var apiRecipes: [Recipe] = [] // Fetched recipes from API to show on the page
     @State var addedRecipes: [Recipe] = [] //Recipes the user decides to add
@@ -53,8 +54,8 @@ struct NewMealPlan: View {
                         }
                     }) {
                         Image(systemName: "arrow.clockwise")
-                            .font(.largeTitle)
-                            .padding(.all)
+                            .font(.title)
+                            .padding(.leading)
                     }
                     
                     Spacer()
@@ -62,9 +63,9 @@ struct NewMealPlan: View {
                     // Cart button
                     NavigationLink(destination: ViewAddedMeals(addedRecipes: $addedRecipes), label: {
                         Image(systemName: "cart.fill")
-                            .font(.largeTitle)
+                            .font(.title)
                             .overlay(BadgeNumberLabel(addedRecipes: $addedRecipes), alignment: .topTrailing)
-                            .padding(.all)
+                            .padding(.trailing)
                     })
                 }
                 
@@ -73,7 +74,8 @@ struct NewMealPlan: View {
                     // Pass added recipes back to the view model to perform updates
                     mealPlanViewModel.mealPlanRecipes = addedRecipes
                     mealPlanViewModel.updateMealPlan(userId: session.profile!.uid)
-                    presentationMode.wrappedValue.dismiss()
+                    //                    presentationMode.wrappedValue.dismiss()
+                    isActive.toggle()
                 }) {
                     Text("Finish")
                         .font(.title2)
@@ -82,6 +84,7 @@ struct NewMealPlan: View {
                         .frame(width: 220, height: 50)
                         .background(Color.blue)
                         .cornerRadius(10)
+                        .padding(.bottom)
                 }
             }
             
@@ -90,7 +93,8 @@ struct NewMealPlan: View {
             .toolbar {
                 ToolbarItem(placement: .cancellationAction, content: {
                     Button(action: {
-                        presentationMode.wrappedValue.dismiss()
+                        isActive.toggle()
+                        //                        presentationMode.wrappedValue.dismiss()
                     }, label: {
                         Image(systemName: "xmark")
                     })
@@ -98,6 +102,7 @@ struct NewMealPlan: View {
                 
             }
         }
+        .navigationBarHidden(true) // Hide navigation bar to move contents up and hide the navigation back button
         // Query API and get some randome recipes
         .onAppear {
             SpoonacularAPI().getRandomRecipes { (recipes) in
@@ -132,7 +137,7 @@ struct NewMealPlan_Previews: PreviewProvider {
     
     static var previews: some View {
         NavigationView {
-            NewMealPlan()
+            NewMealPlan(isActive: .constant(true))
                 .environmentObject(mealPlanViewModel)
         }
     }
