@@ -105,8 +105,10 @@ struct NewMealPlan: View {
         .navigationBarHidden(true) // Hide navigation bar to move contents up and hide the navigation back button
         // Query API and get some randome recipes
         .onAppear {
-            SpoonacularAPI().getRandomRecipes { (recipes) in
-                apiRecipes = recipes
+            if apiRecipes.isEmpty {
+                SpoonacularAPI().getRandomRecipes { (recipes) in
+                    apiRecipes = recipes
+                }
             }
         }
     }
