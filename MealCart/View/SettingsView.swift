@@ -5,6 +5,9 @@
 //  Created by Boyi Ma on 2021-02-04.
 //
 
+/*
+ The view to show the user's profile settings
+ */
 import SwiftUI
 
 struct SettingsView: View {
@@ -25,7 +28,6 @@ struct SettingsView: View {
                     }
                 }
             }
-
         }
     }
 }

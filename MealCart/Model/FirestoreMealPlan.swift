@@ -5,11 +5,15 @@
 //  Created by Boyi Ma on 2021-04-03.
 //
 
+/*
+ Struct and function to work with Firestore
+ */
+
 import Foundation
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
-// Each document store under Firestore/mealPlans is composed of recipe information and userID
+// Document of the user's meal plan
 struct FirestoreMealPlan: Identifiable, Hashable, Codable {
     @DocumentID var id = UUID().uuidString // Get a uuid as document name
     var userId: String
@@ -19,47 +23,31 @@ struct FirestoreMealPlan: Identifiable, Hashable, Codable {
 }
 
 class FirestoreMealPlanViewModel: ObservableObject {
-    @Published var mealPlan = [FirestoreMealPlan]()
-    @Published var mealPlanRecipes = [Recipe]()
-    @Published var favouriteMealPlan = [FirestoreMealPlan]()
+    @Published var mealPlan = [FirestoreMealPlan]() // The user's current meal plans
+    @Published var mealPlanRecipes = [Recipe]() // Recipes the user added in NewMealPlan page
+    @Published var favouriteMealPlan = [FirestoreMealPlan]() // The user's favourite meal plans
     
     private var db = Firestore.firestore()
     
     // MARK: Meal Plans
     
-    // Fetch the logged-in user's meal plan
+    // Fetch the logged-in user's current meal plan
     func fetchMealPlan(userId: String) {
         
         db.collection("mealPlans")
             .whereField("userId", isEqualTo: userId)
             .order(by: "createdTime")
+            // Subscribe to updates at the server side
             .addSnapshotListener { querySnapshot, error in
                 if let querySnapshot = querySnapshot {
                     self.mealPlan = querySnapshot.documents.compactMap { document -> FirestoreMealPlan? in
                         try? document.data(as: FirestoreMealPlan.self)
                     }
-//                    self.mealPlanRecipes = []
-//                    self.mealPlan.forEach { (firestoreMealPlan) in
-//                        self.mealPlanRecipes.append(firestoreMealPlan.recipe)
-//                    }
                 }
             }
     }
     
-    // Add the user's meal plan to Firestore
-    func addMealPlan(userId: String) {
-        
-        mealPlan.forEach { (userMealPlan) in
-            do {
-                let _ = try db.collection("mealPlans").addDocument(from: userMealPlan)
-            }
-            catch {
-                fatalError("Unable to encode task: \(error.localizedDescription).")
-            }
-        }
-    }
-    
-    // Update a user's meal plan with new added recipes
+    // Update a user's meal plan with newly added recipes
     func updateMealPlan(userId: String) {
         
         // First, remove current meal plans from the db
@@ -73,15 +61,50 @@ class FirestoreMealPlanViewModel: ObservableObject {
                         document.reference.delete()
                     }
                     
-                    // Generate meal plans for Firestore with added recipes
+                    // Generate meal plans to store in Firestore with added recipes
                     self.generateMealPlan(userId: userId)
-                    // After meal plans are generated, push them onto the db
-                    self.addMealPlan(userId: userId)
-                    self.mealPlanRecipes = []
-                    self.fetchMealPlan(userId: userId)
-                    #warning("remove")
                 }
             }
+    }
+    
+    // Generate meal plan from user-selected recipes
+    func generateMealPlan(userId: String) {
+        self.mealPlan = [] // Clear current local meal plans
+        var favouriteRecipes = [Recipe]()
+        
+        // Retrieve a list of the user's favourite recipes
+        fetchFavouriteMealPlan(userId: userId)
+        favouriteMealPlan.forEach { (favMealPlan) in
+            favouriteRecipes.append(favMealPlan.recipe)
+        }
+        
+        // Compare if the recipe is already favourite
+        self.mealPlanRecipes.forEach { (recipe) in
+            if favouriteRecipes.contains(recipe) {
+                self.mealPlan.append(FirestoreMealPlan(userId: userId, isFavourite: true, recipe: recipe)) // Initialize the isFavourite field to true
+            } else {
+                self.mealPlan.append(FirestoreMealPlan(userId: userId, isFavourite: false, recipe: recipe)) // Initialize the isFavourite field to true
+            }
+        }
+        
+        // After meal plans are generated, push them onto the db
+        self.addMealPlan(userId: userId)
+    }
+    
+    // Add the user's meal plan to Firestore
+    func addMealPlan(userId: String) {
+        
+        mealPlan.forEach { (userMealPlan) in
+            do {
+                let _ = try db.collection("mealPlans").addDocument(from: userMealPlan)
+            }
+            catch {
+                fatalError("Unable to encode task: \(error.localizedDescription).")
+            }
+        }
+        
+        // Updates are done, clear local recipes the user selected
+        mealPlanRecipes = []
     }
     
     // Update a user meal plan's isFavourite field
@@ -98,7 +121,7 @@ class FirestoreMealPlanViewModel: ObservableObject {
             }
         }
         
-        // Retrieve the specific meal plan
+        // Retrieve the specific meal plan after it's been updated
         mealPlanRef.getDocument { (document, error) in
             
             if let document = document, document.exists {
@@ -117,7 +140,7 @@ class FirestoreMealPlanViewModel: ObservableObject {
                 } else {
                     self.db.collection("favouriteRecipes")
                         .whereField("userId", isEqualTo: userMealPlan!.userId)
-                        .whereField("recipe.id", isEqualTo: userMealPlan!.recipe.id)
+                        .whereField("recipe.id", isEqualTo: userMealPlan!.recipe.id) // Find the meal plan with that recipe
                         .getDocuments { (querySnapshot, err) in
                             if let err = err {
                                 fatalError("Error getting documents: \(err.localizedDescription)")
@@ -136,33 +159,13 @@ class FirestoreMealPlanViewModel: ObservableObject {
     
     // MARK: Favourite Recipes
     
-    // Generate meal plan for user-selected recipes
-    func generateMealPlan(userId: String) {
-        self.mealPlan = []
-        var favouriteRecipes = [Recipe]()
-        
-        // Get a list of the user's favourite recipes
-        fetchFavouriteMealPlan(userId: userId)
-        favouriteMealPlan.forEach { (favouriteMealPlan) in
-            favouriteRecipes.append(favouriteMealPlan.recipe)
-        }
-        
-        // Compare if the recipe is already favourite
-        self.mealPlanRecipes.forEach { (recipe) in
-            if favouriteRecipes.contains(recipe) {
-                self.mealPlan.append(FirestoreMealPlan(userId: userId, isFavourite: true, recipe: recipe))
-            } else {
-                self.mealPlan.append(FirestoreMealPlan(userId: userId, isFavourite: false, recipe: recipe))
-            }
-        }
-    }
-    
     // A function to fetch the logged-in user's favourite recipes
     func fetchFavouriteMealPlan(userId: String) {
         
         db.collection("favouriteRecipes")
             .whereField("userId", isEqualTo: userId)
-            .order(by: "createdTime")
+            .order(by: "createdTime") // Order by time pushed onto the server to maintain the order of when user added them
+            // Subscribe to server-side updates
             .addSnapshotListener { querySnapshot, error in
                 if let querySnapshot = querySnapshot {
                     self.favouriteMealPlan = querySnapshot.documents.compactMap { document -> FirestoreMealPlan? in
@@ -172,19 +175,19 @@ class FirestoreMealPlanViewModel: ObservableObject {
             }
     }
     
-    // A function to update local changes to Firestore
+    // A function to push local changes to favourite meal plans to Firestore
     func removeFavouriteMealPlan(favouriteMealPlan: FirestoreMealPlan) {
         
-        // If the removed favourite meal plan is in the user's currently meal plan, its field and db document need to be updated too
+        // If the removed favourite meal plan is in the user's currently meal plan, that meal plan's isFavourite field and DB records need to be updated too
         if let currentMealPlan = mealPlan.first(where: {$0.recipe == favouriteMealPlan.recipe}) {
             updateMealPlanIsFavourite(documentId: currentMealPlan.id!, isFavourite: false)
-        }
-        
-        db.collection("favouriteRecipes").document(favouriteMealPlan.id!).delete() { err in
-            if let err = err {
-                print("Error removing document: \(err)")
-            } else {
-                print("Document removed")
+        } else {
+            db.collection("favouriteRecipes").document(favouriteMealPlan.id!).delete() { err in
+                if let err = err {
+                    fatalError("Error removing document: \(err)")
+                } else {
+                    print("Document removed")
+                }
             }
         }
     }

@@ -5,6 +5,7 @@
 //  Created by Boyi Ma on 2021-03-19.
 //
 
+// The row view of a recipe's cover
 import SwiftUI
 
 struct AddedMealRow: View {

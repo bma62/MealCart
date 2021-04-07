@@ -5,11 +5,13 @@
 //  Created by Boyi Ma on 2021-02-01.
 //
 
+/*
+ This file represents the user's profile in the database, more profile settings can be added later
+ */
 import Foundation
 import Firebase
 import FirebaseFirestoreSwift
 
-// more profile settings can be added later
 struct UserProfile: Codable {
     var uid: String
     var email: String
@@ -33,8 +35,8 @@ class UserProfileViewModel: ObservableObject {
     func fetchProfile(userId: String, completion: @escaping (_ profile: UserProfile?, _ error: Error?) -> Void) {
         // retrieve user profile from Firestore
         db.collection("users").document(userId).getDocument { (snapshot, error) in
-              let profile = try? snapshot?.data(as: UserProfile.self)
-              completion(profile, error)
-            }
+            let profile = try? snapshot?.data(as: UserProfile.self)
+            completion(profile, error)
+        }
     }
 }

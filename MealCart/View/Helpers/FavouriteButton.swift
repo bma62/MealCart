@@ -5,14 +5,15 @@
 //  Created by Boyi Ma on 2021-01-16.
 //
 
+// The favourite button to toggle a meal plan's isFavourite field
 import SwiftUI
 
 struct FavouriteButton: View {
     @EnvironmentObject var mealPlanViewModel: FirestoreMealPlanViewModel
-
-    // use binding to read-write to the data source
+    
+    // Binding to read-write to the data source
     @Binding var isSet: Bool
-    var documentId: String
+    var documentId: String // DocumentID of the meal plan
     
     var body: some View {
         Button(action: {

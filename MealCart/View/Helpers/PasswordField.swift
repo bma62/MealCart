@@ -5,12 +5,13 @@
 //  Created by Boyi Ma on 2021-02-01.
 //
 
+// A subview of password used in login and signed
 import SwiftUI
 
 struct PasswordField: View {
     @Binding var password: String
     var backgroundColour: Color
-
+    
     var body: some View {
         SecureField("Password", text: $password)
             .padding()

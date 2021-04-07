@@ -5,6 +5,8 @@
 //  Created by Boyi Ma on 2021-02-06.
 //
 
+// A view to display a recipe's cover in meal plan card style
+
 import SwiftUI
 
 struct MealPlanItem: View {

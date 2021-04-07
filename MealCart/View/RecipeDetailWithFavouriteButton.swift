@@ -5,11 +5,14 @@
 //  Created by Boyi Ma on 2021-04-04.
 //
 
+/*
+ This view displays the specific version of recipe detail view with isFavourite button
+ */
 import SwiftUI
 
 struct RecipeDetailWithFavouriteButton: View {
     @EnvironmentObject var mealPlanViewModel: FirestoreMealPlanViewModel
-
+    
     var userMealPlan: FirestoreMealPlan
     
     var mealPlanIndex: Int {

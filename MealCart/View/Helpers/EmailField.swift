@@ -5,6 +5,7 @@
 //  Created by Boyi Ma on 2021-02-01.
 //
 
+// A subview of email used in login and signup views
 import SwiftUI
 
 struct EmailField: View {

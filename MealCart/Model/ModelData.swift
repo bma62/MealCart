@@ -7,7 +7,7 @@
 
 /*
  This class decodes the recipeData.json file and save the data into recipeData, use this for development purposes
-*/
+ */
 
 import Foundation
 import Combine
@@ -21,20 +21,20 @@ final class ModelData: ObservableObject {
 
 func load<T: Decodable>(_ filename: String) -> T {
     let data: Data
-
+    
     // get the file URL
     guard let file = Bundle.main.url(forResource: filename, withExtension: nil)
     else {
         fatalError("Couldn't find \(filename) in main bundle")
     }
-
+    
     // read from the file
     do {
         data = try Data(contentsOf: file)
     } catch {
         fatalError("couldn't load \(filename) from main bundle:\n\(error)")
     }
-
+    
     // decode the JSON file
     do {
         let decoder = JSONDecoder()

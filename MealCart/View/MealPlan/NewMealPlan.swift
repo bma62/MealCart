@@ -5,6 +5,7 @@
 //  Created by Boyi Ma on 2021-02-08.
 //
 
+// The homepage view when the user wants to start a new meal plan and add meals
 import SwiftUI
 
 struct NewMealPlan: View {
@@ -12,7 +13,7 @@ struct NewMealPlan: View {
     @EnvironmentObject var mealPlanViewModel: FirestoreMealPlanViewModel
     @EnvironmentObject var session: SessionStore
     
-    @State var apiRecipes: [Recipe] = [] // New recipes to show on the page
+    @State var apiRecipes: [Recipe] = [] // Fetched recipes from API to show on the page
     @State var addedRecipes: [Recipe] = [] //Recipes the user decides to add
     
     var body: some View {
@@ -45,6 +46,7 @@ struct NewMealPlan: View {
                 }
                 
                 HStack {
+                    // Refresh button
                     Button(action: {
                         SpoonacularAPI().getRandomRecipes { (recipes) in
                             apiRecipes = recipes
@@ -54,8 +56,10 @@ struct NewMealPlan: View {
                             .font(.largeTitle)
                             .padding(.all)
                     }
+                    
                     Spacer()
                     
+                    // Cart button
                     NavigationLink(destination: ViewAddedMeals(addedRecipes: $addedRecipes), label: {
                         Image(systemName: "cart.fill")
                             .font(.largeTitle)
@@ -64,8 +68,9 @@ struct NewMealPlan: View {
                     })
                 }
                 
+                // Finish button
                 Button(action: {
-                    // Pass added recipes back to home page
+                    // Pass added recipes back to the view model to perform updates
                     mealPlanViewModel.mealPlanRecipes = addedRecipes
                     mealPlanViewModel.updateMealPlan(userId: session.profile!.uid)
                     presentationMode.wrappedValue.dismiss()
@@ -79,6 +84,7 @@ struct NewMealPlan: View {
                         .cornerRadius(10)
                 }
             }
+            
             .navigationTitle("Add Meals")
             
             .toolbar {
@@ -121,7 +127,7 @@ struct BadgeNumberLabel: View {
 }
 
 struct NewMealPlan_Previews: PreviewProvider {
-
+    
     static let mealPlanViewModel = FirestoreMealPlanViewModel()
     
     static var previews: some View {

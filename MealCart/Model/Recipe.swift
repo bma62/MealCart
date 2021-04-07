@@ -40,11 +40,6 @@ struct Recipe: Hashable, Codable, Identifiable {
     
     var extendedIngredients: [Ingredient]?
     
-    // this is not part of the API response, but we need this to distinguish the user's favourite recipes
-    var isFavourite: Bool {
-        false
-    }
-    
     struct Ingredient: Codable, Hashable, Identifiable {
         var id: Int?
         var aisle: String?
@@ -142,11 +137,10 @@ class SpoonacularAPI {
                     completion(decodedData.recipes)
                 }
             }  catch {
-//                fatalError("Couldn't parse URL's response correctly")
-                print(error)
+                fatalError("Couldn't parse URL's response correctly")
+                //                print(error)
             }
         }
         .resume()
-        
     }
 }

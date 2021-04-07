@@ -5,6 +5,9 @@
 //  Created by Boyi Ma on 2021-01-14.
 //
 
+/*
+ A view to show a recipe's details including ingredients and instructions
+ */
 import SwiftUI
 
 struct RecipeDetail: View {
@@ -45,6 +48,7 @@ struct RecipeDetail: View {
             
             VStack (alignment: .leading, spacing: 15) {
                 
+                // List of ingredients
                 if displayMode == "ingredients" {
                     if let ingredients = recipe.extendedIngredients {
                         ForEach(ingredients) { ingredient in
@@ -55,8 +59,8 @@ struct RecipeDetail: View {
                     } else {
                         Text("Ingredients Not Available")
                     }
-                    
                 } else {
+                    // List of instructions 
                     if let instructions = recipe.analyzedInstructions {
                         // add a test in case instructions array is empty
                         if !instructions.isEmpty {

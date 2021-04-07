@@ -5,11 +5,14 @@
 //  Created by Boyi Ma on 2021-01-26.
 //
 
+/*
+ This class handles the session of logged-in users
+ */
+
 import SwiftUI
 import Firebase
 import Combine
 
-// this class handles user sessions
 class SessionStore: ObservableObject {
     
     // MARK: Properties
@@ -87,7 +90,7 @@ class SessionStore: ObservableObject {
             }
         }
     }
-
+    
     func logIn(email: String, password: String, completion: @escaping (_ profile: UserProfile?, _ error: Error?) -> Void) {
         Auth.auth().signIn(withEmail: email, password: password) { (result, error) in
             if let error = error {

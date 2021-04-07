@@ -5,6 +5,9 @@
 //  Created by Boyi Ma on 2021-01-26.
 //
 
+/*
+ The view with sign up form for new users
+ */
 import SwiftUI
 
 struct SignUpView: View {
@@ -66,7 +69,7 @@ struct SignUpView: View {
                     .fixedSize(horizontal: false, vertical: true)
                     .offset(y: -10)
             }
-                            
+            
             Button(action: signUp) {
                 Text("Sign Up")
                     .font(.title2)
@@ -82,7 +85,7 @@ struct SignUpView: View {
             
         }
         .padding()
-
+        
     }
 }
 

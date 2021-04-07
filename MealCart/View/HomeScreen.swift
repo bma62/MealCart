@@ -5,12 +5,16 @@
 //  Created by Boyi Ma on 2021-01-05.
 //
 
+/*
+ Homescreen of the app
+ */
 import SwiftUI
 
 struct HomeScreen: View {
     @EnvironmentObject var session: SessionStore
     @EnvironmentObject var mealPlanViewModel: FirestoreMealPlanViewModel
     
+    // Enumeration holding the four tabs
     enum Tab {
         case mealPan
         case shoppingList
@@ -46,6 +50,7 @@ struct HomeScreen: View {
                 .tag(Tab.settings)
         }
         .onAppear(){
+            // Fetch the user's stored meal plans and subscribe to updaes
             mealPlanViewModel.fetchMealPlan(userId: session.profile!.uid)
         }
     }

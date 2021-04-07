@@ -5,15 +5,14 @@
 //  Created by Boyi Ma on 2021-02-06.
 //
 
+// The homepage consisting of the user's current meal plans
 import SwiftUI
 
 struct MealPlanHome: View {
     
-    @EnvironmentObject var session: SessionStore
-    @EnvironmentObject var mealPlanViewModel : FirestoreMealPlanViewModel
-    
     let layout = Constants.viewLayout.twoColumnGrid;
     
+    @EnvironmentObject var mealPlanViewModel : FirestoreMealPlanViewModel
     @State private var showingNewMealPlan = false
     
     var body: some View {
@@ -21,7 +20,7 @@ struct MealPlanHome: View {
             VStack {
                 ScrollView {
                     LazyVGrid(columns: layout, spacing: 16) {
-                        ForEach(mealPlanViewModel.mealPlan, id: \.self) { userMealPlan in
+                        ForEach(mealPlanViewModel.mealPlan) { userMealPlan in
                             NavigationLink(destination: RecipeDetailWithFavouriteButton(userMealPlan: userMealPlan)) {
                                 MealPlanItem(recipe: userMealPlan.recipe)
                             }
@@ -47,9 +46,7 @@ struct MealPlanHome: View {
             }
         }
         .onAppear() {
-//            mealPlanViewModel.fetchMealPlan(userId: session.profile!.uid)
-            print("**********THE CURRENT MEALPLAN IS: \(mealPlanViewModel.mealPlan)*************")
-            #warning("remove")
+            //            mealPlanViewModel.fetchMealPlan(userId: session.profile!.uid)
         }
     }
 }
@@ -61,6 +58,5 @@ struct MealPlanHome_Previews: PreviewProvider {
     static var previews: some View {
         MealPlanHome()
             .environmentObject(mealPlanViewModel)
-            .environmentObject(SessionStore())
     }
 }

@@ -5,6 +5,9 @@
 //  Created by Boyi Ma on 2021-01-26.
 //
 
+/*
+ The view to let users with existing accounts to log in 
+ */
 import SwiftUI
 
 struct LogInView: View {
@@ -65,7 +68,7 @@ struct LogInView: View {
                         .fixedSize(horizontal: false, vertical: true)
                         .offset(y: -10)
                 }
-                                
+                
                 Button(action: logIn) {
                     Text("Log In")
                         .font(.title2)
@@ -75,7 +78,7 @@ struct LogInView: View {
                         .background(Color.green)
                         .cornerRadius(35)
                         .padding(20)
-                        
+                    
                 }
                 
                 NavigationLink(destination: SignUpView()) {
@@ -96,7 +99,7 @@ struct LogInView: View {
         // hide navigation bar to move contents up
         .navigationBarHidden(true)
     }
-
+    
 }
 
 struct LogIn_Previews: PreviewProvider {
