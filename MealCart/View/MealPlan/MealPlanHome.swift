@@ -56,9 +56,6 @@ struct MealPlanHome: View {
             //                NewMealPlan()
             //            }
         }
-        .onAppear(){
-            print("HOME APPEARED")
-        }
     }
 }
 

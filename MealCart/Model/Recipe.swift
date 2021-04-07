@@ -113,7 +113,8 @@ class SpoonacularAPI {
         components.host = "api.spoonacular.com"
         components.path = "/recipes/random"
         components.queryItems = [
-            URLQueryItem(name: "apiKey", value: "a67a5241c34f45429f75c2d8a1858a67"),
+//            URLQueryItem(name: "apiKey", value: "a67a5241c34f45429f75c2d8a1858a67"),
+            URLQueryItem(name: "apiKey", value: "35bf43d4352d4f23b0d22e5854518de2"),
             URLQueryItem(name: "number", value: "6")
         ]
         
