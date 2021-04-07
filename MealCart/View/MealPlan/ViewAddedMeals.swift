@@ -16,7 +16,7 @@ struct ViewAddedMeals: View {
         NavigationView {
             // One row for each recipe with tapping navigation to the recipe details
             List {
-                ForEach(addedRecipes, id: \.self) { recipe in
+                ForEach(addedRecipes) { recipe in
                     NavigationLink(
                         destination: RecipeDetail(recipe: recipe, showFavouriteButton: false, isFavourite: .constant(false)),
                         label: {

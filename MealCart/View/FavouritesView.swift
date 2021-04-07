@@ -21,7 +21,7 @@ struct FavouritesView: View {
             } else {
                 List{
                     // One row for each favourite meal
-                    ForEach(mealPlanViewModel.favouriteMealPlan, id: \.self) { mealPlan in
+                    ForEach(mealPlanViewModel.favouriteMealPlan) { mealPlan in
                         NavigationLink(
                             destination: RecipeDetail(recipe: mealPlan.recipe, showFavouriteButton: false, isFavourite: .constant(false)),
                             label: {
@@ -32,8 +32,7 @@ struct FavouritesView: View {
                         // On delete, update the change to database as well
                         let index = indexSet[indexSet.startIndex]
                         mealPlanViewModel.removeFavouriteMealPlan(favouriteMealPlan: mealPlanViewModel.favouriteMealPlan[index])
-                        // The published array will be automatically updated because of a snapshot listener was established 
-                        //                        mealPlanViewModel.favouriteMealPlan.remove(atOffsets: indexSet)
+                        mealPlanViewModel.favouriteMealPlan.remove(atOffsets: indexSet)
                     })
                 }
                 .navigationTitle("Favourite Recipes")
