@@ -15,6 +15,9 @@ import FirebaseFirestoreSwift
 struct UserProfile: Codable {
     var uid: String
     var email: String
+    var firstName: String
+    var lastName: String
+    var address: String
 }
 
 class UserProfileViewModel: ObservableObject {

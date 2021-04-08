@@ -16,8 +16,12 @@ struct SettingsView: View {
     
     var body: some View {
         Form {
-            Text(userProfile.uid)
-            Text(userProfile.email)
+            Text("UID: \(userProfile.uid)")
+            Text("Email: \(userProfile.email)")
+            Text("First Name: \(userProfile.firstName)")
+            Text("Last Name: \(userProfile.lastName)")
+            Text("Address: \(userProfile.address)")
+
             Section {
                 Button(action: session.logOut) {
                     HStack {
@@ -36,7 +40,7 @@ struct SettingsView_Previews: PreviewProvider {
     static let session = SessionStore()
     
     static var previews: some View {
-        SettingsView(userProfile: UserProfile(uid: "TEST1234", email: "test@gmail.com"))
+        SettingsView(userProfile: UserProfile(uid: "TEST1234", email: "test@gmail.com", firstName: "Test", lastName: "User", address: ""))
             .environmentObject(session)
     }
 }

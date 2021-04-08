@@ -43,14 +43,14 @@ struct HomeScreen: View {
                 .tag(Tab.favourites)
             
             // in case a user doesn't have profile, show some default contents
-            SettingsView(userProfile: session.profile ?? UserProfile(uid: "TEST1234", email: "test@gmail.com"))
+            SettingsView(userProfile: session.profile ?? UserProfile(uid: "TEST1234", email: "", firstName: "", lastName: "", address: ""))
                 .tabItem {
                     Label("Settings", systemImage: "gearshape")
                 }
                 .tag(Tab.settings)
         }
         .onAppear(){
-            let userId = session.profile!.uid
+            let userId = session.session!.uid
             // Fetch the user's stored meal plans and favourites and subscribe to updaes
             mealPlanViewModel.fetchMealPlan(userId: userId)
             mealPlanViewModel.fetchFavouriteMealPlan(userId: userId)

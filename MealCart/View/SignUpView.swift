@@ -21,19 +21,25 @@ struct SignUpView: View {
     @State var profile: UserProfile?
     
     @State var email = ""
+    @State var firstName = ""
+    @State var lastName = ""
+    @State var address = ""
     @State var password = ""
     @State var error = ""
     
     // MARK: Sign Up Function
     
     func signUp() {
-        session.signUp(email: email, password: password) { (profile, error) in
+        session.signUp(email: email, firstName: firstName, lastName: lastName, address: address, password: password) { (profile, error) in
             // if the error is not nil, read the error message
             if let error = error {
                 self.error = error.localizedDescription
             } else {
                 // upon successful sign up, clear the states
                 self.email = ""
+                self.firstName = ""
+                self.lastName = ""
+                self.address = ""
                 self.password = ""
                 self.error = ""
                 self.profile = profile
@@ -42,8 +48,7 @@ struct SignUpView: View {
     }
     
     var body: some View {
-        VStack {
-            Spacer()
+        ScrollView(showsIndicators: false) {
             
             Text("Create Account")
                 .font(.largeTitle)
@@ -60,6 +65,12 @@ struct SignUpView: View {
             EmailField(email: $email, backgroundColour: lightGrey)
             
             PasswordField(password: $password, backgroundColour: lightGrey)
+            
+            NameField(name: $firstName, displayString: "First Name", backgroundColour: lightGrey)
+            
+            NameField(name: $lastName, displayString: "Last Name", backgroundColour: lightGrey)
+            
+            AddressField(address: $address, backgroundColour: lightGrey)
             
             if (error != "") {
                 Text(error)
@@ -82,9 +93,8 @@ struct SignUpView: View {
             }
             
             Spacer()
-            
         }
-        .padding()
+        .padding(.horizontal)
         
     }
 }

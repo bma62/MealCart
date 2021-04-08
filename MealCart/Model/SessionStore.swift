@@ -41,8 +41,15 @@ class SessionStore: ObservableObject {
             if let user = user {
                 // if we have a user, create a new user model
                 print("Got user: \(user)")
-                self.session = User(uid: user.uid, email: user.email, displayName: user.displayName)
-                self.profile = UserProfile(uid: user.uid, email: user.email!)
+                
+                self.profileViewModel.fetchProfile(userId: user.uid) { (profile, error) in
+                    if let error = error {
+                        print("Error fetching user profile from Firestore \(error)")
+                    } else {
+                        self.session = User(uid: user.uid, email: user.email, displayName: user.displayName)
+                        self.profile = profile
+                    }
+                }
             }
             else {
                 // if we don't have a user, set session to nil
@@ -66,7 +73,7 @@ class SessionStore: ObservableObject {
     
     // MARK: Authentication Functions
     
-    func signUp(email: String, password: String, completion: @escaping (_ profile: UserProfile?, _ error: Error?) -> Void) {
+    func signUp(email: String, firstName: String, lastName: String, address: String, password: String, completion: @escaping (_ profile: UserProfile?, _ error: Error?) -> Void) {
         Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
             if let error = error {
                 print("Error signing up \(error)")
@@ -77,7 +84,7 @@ class SessionStore: ObservableObject {
             guard let user = result?.user else { return }
             print("User \(user.uid) successfully signed up.")
             
-            let userProfile = UserProfile(uid: user.uid, email: email)
+            let userProfile = UserProfile(uid: user.uid, email: email, firstName: firstName, lastName: lastName, address: address)
             
             self.profileViewModel.createProfile(profile: userProfile) { (profile, error) in
                 if let error = error {
