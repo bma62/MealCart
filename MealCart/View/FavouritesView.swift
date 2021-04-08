@@ -41,9 +41,5 @@ struct FavouritesView: View {
                 }
             }
         }
-        .onAppear() {
-            // Fetch on every appearance in case new meals are marked as favourites in other views
-            mealPlanViewModel.fetchFavouriteMealPlan(userId: session.profile!.uid)
-        }
     }
 }

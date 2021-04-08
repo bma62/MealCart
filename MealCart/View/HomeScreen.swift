@@ -30,7 +30,7 @@ struct HomeScreen: View {
                 }
                 .tag(Tab.mealPan)
             
-            Text("Shopping List Page")
+            ShoppingListView()
                 .tabItem {
                     Label("Shopping List", systemImage: "list.bullet")
                 }
@@ -50,8 +50,11 @@ struct HomeScreen: View {
                 .tag(Tab.settings)
         }
         .onAppear(){
-            // Fetch the user's stored meal plans and subscribe to updaes
-            mealPlanViewModel.fetchMealPlan(userId: session.profile!.uid)
+            let userId = session.profile!.uid
+            // Fetch the user's stored meal plans and favourites and subscribe to updaes
+            mealPlanViewModel.fetchMealPlan(userId: userId)
+            mealPlanViewModel.fetchFavouriteMealPlan(userId: userId)
+            mealPlanViewModel.fetchShoppingList(userId: userId)
         }
     }
 }

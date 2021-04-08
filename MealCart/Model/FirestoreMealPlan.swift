@@ -22,10 +22,21 @@ struct FirestoreMealPlan: Identifiable, Hashable, Codable {
     @ServerTimestamp var createdTime: Timestamp? // Let Firestore write server time to each document for ordering
 }
 
+// Document to store items in the user's Shopping List
+struct FirestoreShoppingListItem: Identifiable, Hashable, Codable {
+    @DocumentID var id = UUID().uuidString
+    var userId: String
+    var name: String
+    var unit: String
+    var amount: Double
+    @ServerTimestamp var createdTime: Timestamp? // Let Firestore write server time to each document for ordering
+}
+
 class FirestoreMealPlanViewModel: ObservableObject {
     @Published var mealPlan = [FirestoreMealPlan]() // The user's current meal plans
     @Published var mealPlanRecipes = [Recipe]() // Recipes the user added in NewMealPlan page
     @Published var favouriteMealPlan = [FirestoreMealPlan]() // The user's favourite meal plans
+    @Published var shoppingList = [FirestoreShoppingListItem]() // The user's current shopping list
     
     private var db = Firestore.firestore()
     
@@ -105,6 +116,8 @@ class FirestoreMealPlanViewModel: ObservableObject {
         
         // Updates are done, clear local recipes the user selected
         mealPlanRecipes = []
+        
+        removeShoppingList(userId: userId)
     }
     
     // Update a user meal plan's isFavourite field
@@ -191,4 +204,86 @@ class FirestoreMealPlanViewModel: ObservableObject {
             }
         }
     }
+    
+    // MARK: Shopping Lists
+    
+    func fetchShoppingList(userId: String) {
+        
+        db.collection("shoppingLists")
+            .whereField("userId", isEqualTo: userId)
+            .order(by: "createdTime")
+            // Subscribe to updates at the server side
+            .addSnapshotListener { querySnapshot, error in
+                if let querySnapshot = querySnapshot {
+                    self.shoppingList = querySnapshot.documents.compactMap { document -> FirestoreShoppingListItem? in
+                        try? document.data(as: FirestoreShoppingListItem.self)
+                    }
+                }
+            }
+    }
+    
+    // Remove the user's current shopping list to prepare for new upload
+    func removeShoppingList(userId: String) {
+        
+        db.collection("shoppingLists")
+            .whereField("userId", isEqualTo: userId)
+            .getDocuments { (querySnapshot, err) in
+                if let err = err {
+                    fatalError("Error getting documents: \(err.localizedDescription)")
+                } else {
+                    for document in querySnapshot!.documents {
+                        document.reference.delete()
+                    }
+                    self.generateShoppingList(userId: userId)
+                }
+            }
+    }
+    
+    // Generate a new shopping list for current meal plans
+    func generateShoppingList(userId: String) {
+        
+//        removeShoppingList(userId: userId)
+        shoppingList = [] // Clear previous records
+        
+        mealPlan.forEach { (userMealPlan) in
+            // Test if the ingredients are not nil
+            if let ingredients = userMealPlan.recipe.extendedIngredients {
+                ingredients.forEach({ (ingredient) in
+                    // Test if this ingredient name and unit is already in array
+                    if let index = shoppingList.firstIndex(where: {$0.name == ingredient.name && $0.unit == ingredient.unit}) {
+                        shoppingList[index].amount += ingredient.amount
+                    } else {
+                        // Otherwise, append this new ingredient
+                        shoppingList.append(FirestoreShoppingListItem(userId: userId, name: ingredient.name, unit: ingredient.unit, amount: ingredient.amount))
+                    }
+                })
+            }
+        }
+        
+        addShoppingList(userId: userId)
+    }
+    
+    // Push local shopping list to Firestore
+    func addShoppingList(userId: String) {
+        
+        shoppingList.forEach { (shoppingListItem) in
+            do {
+                let _ = try db.collection("shoppingLists").addDocument(from: shoppingListItem)
+            }
+            catch {
+                fatalError("Unable to encode task: \(error.localizedDescription).")
+            }
+        }
+    }
+    
+    func removeShoppingListItem(userId: String, at index: Int) {
+        let documentId = shoppingList[index].id!
+        
+        db.collection("shoppingLists").document(documentId).delete() { err in
+            if let err = err {
+                fatalError("Error removing document: \(err)")
+            } else {
+                print("Document removed")
+            }
+        }    }
 }
