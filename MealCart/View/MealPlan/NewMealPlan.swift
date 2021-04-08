@@ -16,11 +16,33 @@ struct NewMealPlan: View {
     
     @State var apiRecipes: [Recipe] = [] // Fetched recipes from API to show on the page
     @State var addedRecipes: [Recipe] = [] //Recipes the user decides to add
+    @State private var showFavouriteRecipes = false
+    @State private var tempRecipes: [Recipe] = [] // Holder for recipes on display when showFavourites is toggled on
     
     var body: some View {
         NavigationView {
             VStack {
                 ScrollView {
+                    
+                    Toggle(isOn: $showFavouriteRecipes) {
+                        Text("Show Favourite Recipes")
+                    }
+                    .padding(.horizontal)
+                    .onChange(of: showFavouriteRecipes) { toggleValue in
+                        // If toggle is switched on, get favourite recipes to display
+                        if toggleValue {
+                            tempRecipes = apiRecipes
+                            apiRecipes = []
+                            mealPlanViewModel.favouriteMealPlan.forEach({ (mealPlan) in
+                                apiRecipes.append(mealPlan.recipe)
+                            })
+                        } else {
+                            // If the toggle is switched off, get the previous display of recipes
+                            apiRecipes = tempRecipes
+                        }
+                    }
+                    
+                    
                     LazyVGrid(columns: Constants.viewLayout.twoColumnGrid, spacing: 16) {
                         ForEach(apiRecipes) { recipe in
                             
