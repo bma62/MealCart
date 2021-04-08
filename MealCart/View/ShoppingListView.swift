@@ -10,21 +10,19 @@ import SwiftUI
 struct ShoppingListView: View {
     @EnvironmentObject var session: SessionStore
     @EnvironmentObject var mealPlanViewModel : FirestoreMealPlanViewModel
-        
+    
     var body: some View {
         NavigationView {
-            VStack {
-                List {
-                    ForEach(mealPlanViewModel.shoppingList) { shoppingListItem in
-                        Text("\(formatNumber(from: shoppingListItem.amount)) \(shoppingListItem.unit) \(shoppingListItem.name)")
-                    }
-                    .onDelete(perform: { indexSet in
-                        let index = indexSet[indexSet.startIndex]
-                        mealPlanViewModel.removeShoppingListItem(userId: session.profile!.uid, at: index)
-                    })
+            List {
+                ForEach(mealPlanViewModel.shoppingList) { shoppingListItem in
+                    Text("\(formatNumber(from: shoppingListItem.amount)) \(shoppingListItem.unit) \(shoppingListItem.name)")
                 }
-                .listStyle(PlainListStyle())
-                
+                .onDelete(perform: { indexSet in
+                    let index = indexSet[indexSet.startIndex]
+                    mealPlanViewModel.removeShoppingListItem(userId: session.profile!.uid, at: index)
+                })
+            }
+            .overlay(
                 Button(action: {
                     #warning("INTERACTION WITH GROCERY STORE API HERE")
                 }) {
@@ -36,8 +34,8 @@ struct ShoppingListView: View {
                         .background(Color.blue)
                         .cornerRadius(10)
                 }
-                .padding(.bottom)
-            }
+                .padding(.bottom),
+                alignment: .bottom)
             .navigationTitle("Shopping List")
             .toolbar {
                 EditButton()

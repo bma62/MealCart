@@ -17,24 +17,23 @@ struct MealPlanHome: View {
     
     var body: some View {
         NavigationView {
-            VStack {
-                ScrollView {
-                    LazyVGrid(columns: layout, spacing: 16) {
-                        ForEach(mealPlanViewModel.mealPlan) { userMealPlan in
-                            
-                            // Compute the index of this meal plan in view model
-                            let mealPlanIndex = mealPlanViewModel.mealPlan.firstIndex(where: { $0.id == userMealPlan.id })!
-                            NavigationLink(
-                                destination: RecipeDetail(recipe: userMealPlan.recipe, showFavouriteButton: true, isFavourite: $mealPlanViewModel.mealPlan[mealPlanIndex].isFavourite, documentId: userMealPlan.id!),
-                                label: {
-                                    MealPlanItem(recipe: userMealPlan.recipe)
-                                })
-                        }
+            ScrollView {
+                LazyVGrid(columns: layout, spacing: 16) {
+                    ForEach(mealPlanViewModel.mealPlan) { userMealPlan in
+                        
+                        // Compute the index of this meal plan in view model
+                        let mealPlanIndex = mealPlanViewModel.mealPlan.firstIndex(where: { $0.id == userMealPlan.id })!
+                        NavigationLink(
+                            destination: RecipeDetail(recipe: userMealPlan.recipe, showFavouriteButton: true, isFavourite: $mealPlanViewModel.mealPlan[mealPlanIndex].isFavourite, documentId: userMealPlan.id!),
+                            label: {
+                                MealPlanItem(recipe: userMealPlan.recipe)
+                            })
                     }
-                    .padding(.horizontal, 12)
                 }
-                
-                // Start new meal plan button 
+                .padding(.horizontal, 12)
+            }
+            // Start new meal plan button
+            .overlay(
                 NavigationLink(
                     destination: NewMealPlan(isActive: $showingNewMealPlan),
                     isActive: self.$showingNewMealPlan,
@@ -49,12 +48,9 @@ struct MealPlanHome: View {
                                 .cornerRadius(10)
                         }
                         .padding(.bottom)
-                    })
-            }
+                    }),
+                alignment: .bottom)
             .navigationTitle("Meal Plan")
-            //            .fullScreenCover(isPresented: $showingNewMealPlan) {
-            //                NewMealPlan()
-            //            }
         }
     }
 }
