@@ -10,23 +10,33 @@ import SwiftUI
 struct ShoppingListView: View {
     @EnvironmentObject var session: SessionStore
     @EnvironmentObject var mealPlanViewModel : FirestoreMealPlanViewModel
-    //    @EnvironmentObject var modelData: ModelData
-    
+        
     var body: some View {
         NavigationView {
-            List {
-                //            ForEach(modelData.recipeData.recipes) { recipe in
-                //                ForEach(recipe.extendedIngredients!) {ingredient in
-                //                    Text("\(String(format: "%.2f", ingredient.amount)) \(ingredient.unit) \(ingredient.name)")
-                //                }
-                //            }
-                ForEach(mealPlanViewModel.shoppingList) { shoppingListItem in
-                    Text("\(String(format: "%.2f", shoppingListItem.amount)) \(shoppingListItem.unit) \(shoppingListItem.name)")
+            VStack {
+                List {
+                    ForEach(mealPlanViewModel.shoppingList) { shoppingListItem in
+                        Text("\(formatNumber(from: shoppingListItem.amount)) \(shoppingListItem.unit) \(shoppingListItem.name)")
+                    }
+                    .onDelete(perform: { indexSet in
+                        let index = indexSet[indexSet.startIndex]
+                        mealPlanViewModel.removeShoppingListItem(userId: session.profile!.uid, at: index)
+                    })
                 }
-                .onDelete(perform: { indexSet in
-                    let index = indexSet[indexSet.startIndex]
-                    mealPlanViewModel.removeShoppingListItem(userId: session.profile!.uid, at: index)
-                })
+                .listStyle(PlainListStyle())
+                
+                Button(action: {
+                    #warning("INTERACTION WITH GROCERY STORE API HERE")
+                }) {
+                    Text("Place Order")
+                        .font(.title2)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.white)
+                        .frame(width: 220, height: 50)
+                        .background(Color.blue)
+                        .cornerRadius(10)
+                }
+                .padding(.bottom)
             }
             .navigationTitle("Shopping List")
             .toolbar {
@@ -36,12 +46,21 @@ struct ShoppingListView: View {
     }
 }
 
+// A number formatter to remove trailing zeros and keep a maximum of 2 decimal places
+func formatNumber(from number: Double) -> String {
+    let formatter = NumberFormatter()
+    formatter.minimumIntegerDigits = 1
+    formatter.minimumFractionDigits = 0
+    formatter.maximumFractionDigits = 2
+    return formatter.string(from: NSNumber(value: number)) ?? "Error converting amount"
+    
+}
+
 struct ShoppingListView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             ShoppingListView()
                 .environmentObject(FirestoreMealPlanViewModel())
-//                .environmentObject(ModelData())
         }
     }
 }

@@ -242,7 +242,6 @@ class FirestoreMealPlanViewModel: ObservableObject {
     // Generate a new shopping list for current meal plans
     func generateShoppingList(userId: String) {
         
-//        removeShoppingList(userId: userId)
         shoppingList = [] // Clear previous records
         
         mealPlan.forEach { (userMealPlan) in
