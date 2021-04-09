@@ -19,6 +19,9 @@ struct NewMealPlan: View {
     @State private var showFavouriteRecipes = false
     @State private var tempRecipes: [Recipe] = [] // Holder for recipes on display when showFavourites is toggled on
     
+    @State private var sendSearch = false
+    @State private var searchText = ""
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -42,6 +45,20 @@ struct NewMealPlan: View {
                         }
                     }
                     
+                    SearchBar(searchText: $searchText, sendSearch: $sendSearch)
+                        // Send search query and parse response
+                        .onChange(of: sendSearch, perform: { _ in
+                            if sendSearch {
+                                if (showFavouriteRecipes) {
+                                    showFavouriteRecipes = false
+                                }
+                                SpoonacularAPI().searchRecipes(query: searchText) { (recipes) in
+                                    apiRecipes = recipes
+                                }
+                                
+                                sendSearch = false
+                            }
+                        })
                     
                     LazyVGrid(columns: Constants.viewLayout.twoColumnGrid, spacing: 16) {
                         ForEach(apiRecipes) { recipe in
@@ -71,6 +88,10 @@ struct NewMealPlan: View {
                 HStack {
                     // Refresh button
                     Button(action: {
+                        // If the showFavourites toggle is on, tapping refresh should reset it
+                        if (showFavouriteRecipes) {
+                            showFavouriteRecipes = false
+                        }
                         SpoonacularAPI().getRandomRecipes { (recipes) in
                             apiRecipes = recipes
                         }

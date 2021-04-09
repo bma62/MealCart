@@ -12,8 +12,14 @@
 import Foundation
 import SwiftUI
 
+// Structure of response when getting random recipes
 struct RecipeData: Hashable, Codable {
     var recipes: [Recipe]
+}
+
+// Structure of response when searching recipes
+struct SearchRecipes: Hashable, Codable {
+    var results: [Recipe]
 }
 
 struct Recipe: Hashable, Codable, Identifiable {
@@ -67,7 +73,7 @@ struct Recipe: Hashable, Codable, Identifiable {
 // MARK: API Integration
 class SpoonacularAPI {
     
-    // because data task is async, return upon completion
+    // Get 6 random recipes from the API
     func getRandomRecipes(completion: @escaping ([Recipe]) -> Void) {
         
         // MARK: RapidAPI version
@@ -136,6 +142,50 @@ class SpoonacularAPI {
                 let decodedData = try decoder.decode(RecipeData.self, from: data)
                 DispatchQueue.main.async {
                     completion(decodedData.recipes)
+                }
+            }  catch {
+                fatalError("Couldn't parse URL's response correctly")
+                //                print(error)
+            }
+        }
+        .resume()
+    }
+    
+    // Send a query with keyword to search recipes
+    func searchRecipes(query: String, completion: @escaping ([Recipe]) -> Void) {
+        
+        var components = URLComponents()
+        components.scheme = "https"
+        components.host = "api.spoonacular.com"
+        components.path = "/recipes/complexSearch"
+        components.queryItems = [
+//            URLQueryItem(name: "apiKey", value: "a67a5241c34f45429f75c2d8a1858a67"),
+            URLQueryItem(name: "apiKey", value: "35bf43d4352d4f23b0d22e5854518de2"),
+            URLQueryItem(name: "number", value: "6"),
+            URLQueryItem(name: "query", value: query),
+            URLQueryItem(name: "instructionsRequired", value: "true"),  // Include only recipes with instructions
+            URLQueryItem(name: "fillIngredients", value: "true"),       // Get ingredients as well
+            URLQueryItem(name: "addRecipeInformation", value: "true")  // Get instructions too
+        ]
+        
+        // Getting a URL from our components is as simple as
+        // accessing the 'url' property.
+        guard let url = components.url else {
+            fatalError("Error creating URL object")
+        }
+        let request = URLRequest(url: url, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 10)
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data, error == nil else {
+                fatalError("Failed to load data")
+            }
+            
+            do {
+                // return recipes upon completion
+                let decoder = JSONDecoder()
+                let decodedData = try decoder.decode(SearchRecipes.self, from: data)
+                DispatchQueue.main.async {
+                    completion(decodedData.results)
                 }
             }  catch {
                 fatalError("Couldn't parse URL's response correctly")
