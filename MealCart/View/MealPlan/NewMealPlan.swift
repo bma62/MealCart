@@ -104,31 +104,32 @@ struct NewMealPlan: View {
                     Spacer()
                     
                     // Cart button
-                    NavigationLink(destination: ViewAddedMeals(addedRecipes: $addedRecipes), label: {
+                    NavigationLink(destination: ViewAddedMeals(isActive: $isActive, addedRecipes: $addedRecipes), label: {
                         Image(systemName: "cart.fill")
                             .font(.title)
                             .overlay(BadgeNumberLabel(addedRecipes: $addedRecipes), alignment: .topTrailing)
                             .padding(.trailing)
                     })
                 }
+                .padding(.bottom)
                 
-                // Finish button
-                Button(action: {
-                    // Pass added recipes back to the view model to perform updates
-                    mealPlanViewModel.mealPlanRecipes = addedRecipes
-                    mealPlanViewModel.updateMealPlan(userId: session.profile!.uid)
-                    //                    presentationMode.wrappedValue.dismiss()
-                    isActive.toggle()
-                }) {
-                    Text("Finish")
-                        .font(.title2)
-                        .fontWeight(.semibold)
-                        .foregroundColor(.white)
-                        .frame(width: 220, height: 50)
-                        .background(Color.blue)
-                        .cornerRadius(10)
-                        .padding(.bottom)
-                }
+//                // Finish button
+//                Button(action: {
+//                    // Pass added recipes back to the view model to perform updates
+//                    mealPlanViewModel.mealPlanRecipes = addedRecipes
+//                    mealPlanViewModel.updateMealPlan(userId: session.profile!.uid)
+//                    //                    presentationMode.wrappedValue.dismiss()
+//                    isActive.toggle()
+//                }) {
+//                    Text("Finish")
+//                        .font(.title2)
+//                        .fontWeight(.semibold)
+//                        .foregroundColor(.white)
+//                        .frame(width: 220, height: 50)
+//                        .background(Color.blue)
+//                        .cornerRadius(10)
+//                        .padding(.bottom)
+//                }
             }
             
             .navigationTitle("Add Meals")

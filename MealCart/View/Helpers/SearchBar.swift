@@ -28,8 +28,9 @@ struct SearchBar: View {
                         sendSearch = true
                     }
                 })
+                .textContentType(.none)
                 .autocapitalization(.none)
-                .disableAutocorrection(true)
+                .disableAutocorrection(false)
                 .foregroundColor(.primary)
                 
                 // The clear x button
