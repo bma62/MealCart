@@ -195,7 +195,7 @@ class SpoonacularAPI {
         .resume()
     }
     
-    func extractRecipeFromWebsite(url: String, completion: @escaping (Recipe) -> Void) {
+    func extractRecipeFromWebsite(url: String, completion: @escaping (Recipe?, Error?) -> Void) {
         var components = URLComponents()
         components.scheme = "https"
         components.host = "api.spoonacular.com"
@@ -225,12 +225,12 @@ class SpoonacularAPI {
                 let decoder = JSONDecoder()
                 let decodedData = try decoder.decode(Recipe.self, from: data)
                 DispatchQueue.main.async {
-                    completion(decodedData)
+                    completion(decodedData, nil) // Extraction successful with no error
                 }
             }  catch {
                 
                 print(error)
-                fatalError("Couldn't parse URL's response correctly")
+                completion(nil, error)
             }
         }
         .resume()

@@ -170,6 +170,18 @@ class FirestoreMealPlanViewModel: ObservableObject {
         }
     }
     
+    // A function to add the user's own recipe to the current meal plan
+    func addRecipeToMealPlan(recipe: Recipe, userId: String) {
+        let newMealPlan = FirestoreMealPlan(userId: userId, isFavourite: false, recipe: recipe)
+        
+        do {
+            let _ = try db.collection("mealPlans").addDocument(from: newMealPlan)
+        }
+        catch {
+            fatalError("Unable to encode task: \(error.localizedDescription).")
+        }
+    }
+    
     // MARK: Favourite Recipes
     
     // A function to fetch the logged-in user's favourite recipes

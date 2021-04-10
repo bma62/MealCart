@@ -61,11 +61,11 @@ struct HomeScreen: View {
                 .tag(Tab.settings)
         }
         .onAppear(){
-            //            let userId = session.session!.uid
-            //            // Fetch the user's stored meal plans and favourites and subscribe to updaes
-            //            mealPlanViewModel.fetchMealPlan(userId: userId)
-            //            mealPlanViewModel.fetchFavouriteMealPlan(userId: userId)
-            //            mealPlanViewModel.fetchShoppingList(userId: userId)
+            let userId = session.session!.uid
+            // Fetch the user's stored meal plans and favourites and subscribe to updaes
+            mealPlanViewModel.fetchMealPlan(userId: userId)
+            mealPlanViewModel.fetchFavouriteMealPlan(userId: userId)
+            mealPlanViewModel.fetchShoppingList(userId: userId)
         }
         .onChange(of: selectedTab, perform: { value in
             // Open the action sheet if the add recipe tab is selected
@@ -83,7 +83,7 @@ struct HomeScreen: View {
                             .cancel({
                                 // On cancell, dismiss action sheet and rollback to homepage
                                 showActionSheet = false
-//                                selectedTab = Tab.mealPan
+                                //                                selectedTab = Tab.mealPan
                             })
                         ])
         })
