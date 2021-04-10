@@ -28,6 +28,7 @@
 		64950E36261F926D009A6255 /* NameField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64950E35261F926D009A6255 /* NameField.swift */; };
 		64950E3B261F938A009A6255 /* AddressField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64950E3A261F938A009A6255 /* AddressField.swift */; };
 		64950E40261FDD01009A6255 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64950E3F261FDD01009A6255 /* SearchBar.swift */; };
+		64950E452620E3D7009A6255 /* AddRecipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64950E442620E3D7009A6255 /* AddRecipeView.swift */; };
 		6497F4DD25BE4C8F00811986 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6497F4DC25BE4C8F00811986 /* GoogleService-Info.plist */; };
 		64A22DB925C35DCA00D6569D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64A22DB825C35DCA00D6569D /* ContentView.swift */; };
 		64A22DC425C78BA400D6569D /* top-1k-ingredients.csv in Resources */ = {isa = PBXBuildFile; fileRef = 64A22DC325C78BA400D6569D /* top-1k-ingredients.csv */; };
@@ -96,6 +97,7 @@
 		64950E35261F926D009A6255 /* NameField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameField.swift; sourceTree = "<group>"; };
 		64950E3A261F938A009A6255 /* AddressField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressField.swift; sourceTree = "<group>"; };
 		64950E3F261FDD01009A6255 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
+		64950E442620E3D7009A6255 /* AddRecipeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecipeView.swift; sourceTree = "<group>"; };
 		6497F4DC25BE4C8F00811986 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		64A22DB825C35DCA00D6569D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		64A22DC325C78BA400D6569D /* top-1k-ingredients.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "top-1k-ingredients.csv"; sourceTree = "<group>"; };
@@ -227,6 +229,7 @@
 				64E7F35E25CF6CC00033BD26 /* MealPlan */,
 				64911CDF25B380A4002E4818 /* Helpers */,
 				648973C925A50BC30049AB5B /* HomeScreen.swift */,
+				64950E442620E3D7009A6255 /* AddRecipeView.swift */,
 				64950E30261E83A8009A6255 /* ShoppingListView.swift */,
 				64A22DB825C35DCA00D6569D /* ContentView.swift */,
 				64E7F34D25CE16F90033BD26 /* FavouritesView.swift */,
@@ -544,6 +547,7 @@
 				64911CE125B380BF002E4818 /* FavouriteButton.swift in Sources */,
 				64E7F34E25CE16F90033BD26 /* FavouritesView.swift in Sources */,
 				64E7F34425C8FC970033BD26 /* UserProfile.swift in Sources */,
+				64950E452620E3D7009A6255 /* AddRecipeView.swift in Sources */,
 				647BA8A02619502A009BD64B /* FirestoreMealPlan.swift in Sources */,
 				64E7F36025CF6CEB0033BD26 /* MealPlanHome.swift in Sources */,
 				64950E31261E83A8009A6255 /* ShoppingListView.swift in Sources */,

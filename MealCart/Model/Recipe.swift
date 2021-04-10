@@ -29,8 +29,8 @@ struct Recipe: Hashable, Codable, Identifiable {
     
     var id: Int
     var title: String
-    var servings: Int
-    var readyInMinutes: Int
+//    var servings: Int
+    var readyInMinutes: Int?
     
     // Note: after inspecting more API recipes, it seems some have empty instructions
     var analyzedInstructions: [AnalyzedInstructions]?
@@ -119,7 +119,7 @@ class SpoonacularAPI {
         components.host = "api.spoonacular.com"
         components.path = "/recipes/random"
         components.queryItems = [
-//            URLQueryItem(name: "apiKey", value: "a67a5241c34f45429f75c2d8a1858a67"),
+            //            URLQueryItem(name: "apiKey", value: "a67a5241c34f45429f75c2d8a1858a67"),
             URLQueryItem(name: "apiKey", value: "35bf43d4352d4f23b0d22e5854518de2"),
             URLQueryItem(name: "number", value: "6")
         ]
@@ -159,7 +159,7 @@ class SpoonacularAPI {
         components.host = "api.spoonacular.com"
         components.path = "/recipes/complexSearch"
         components.queryItems = [
-//            URLQueryItem(name: "apiKey", value: "a67a5241c34f45429f75c2d8a1858a67"),
+            //            URLQueryItem(name: "apiKey", value: "a67a5241c34f45429f75c2d8a1858a67"),
             URLQueryItem(name: "apiKey", value: "35bf43d4352d4f23b0d22e5854518de2"),
             URLQueryItem(name: "number", value: "6"),
             URLQueryItem(name: "query", value: query),
@@ -190,6 +190,47 @@ class SpoonacularAPI {
             }  catch {
                 fatalError("Couldn't parse URL's response correctly")
                 //                print(error)
+            }
+        }
+        .resume()
+    }
+    
+    func extractRecipeFromWebsite(url: String, completion: @escaping (Recipe) -> Void) {
+        var components = URLComponents()
+        components.scheme = "https"
+        components.host = "api.spoonacular.com"
+        components.path = "/recipes/extract"
+        components.queryItems = [
+            //            URLQueryItem(name: "apiKey", value: "a67a5241c34f45429f75c2d8a1858a67"),
+            URLQueryItem(name: "apiKey", value: "35bf43d4352d4f23b0d22e5854518de2"),
+            URLQueryItem(name: "url", value: url),  // URL of the recipe
+            URLQueryItem(name: "forceExtraction", value: "true"),
+            URLQueryItem(name: "analyze", value: "true")
+        ]
+        
+        // Getting a URL from our components is as simple as
+        // accessing the 'url' property.
+        guard let url = components.url else {
+            fatalError("Error creating URL object")
+        }
+        let request = URLRequest(url: url, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 10)
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data, error == nil else {
+                fatalError("Failed to load data")
+            }
+            
+            do {
+                // return recipe upon completion
+                let decoder = JSONDecoder()
+                let decodedData = try decoder.decode(Recipe.self, from: data)
+                DispatchQueue.main.async {
+                    completion(decodedData)
+                }
+            }  catch {
+                
+                print(error)
+                fatalError("Couldn't parse URL's response correctly")
             }
         }
         .resume()

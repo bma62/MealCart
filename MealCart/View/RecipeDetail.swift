@@ -33,8 +33,10 @@ struct RecipeDetail: View {
                 }
             }
             
-            Text("Ready in: \(recipe.readyInMinutes) minutes")
-                .font(.callout)
+            if let readyInMinutes = recipe.readyInMinutes {
+                Text("Ready in: \(readyInMinutes) minutes")
+                    .font(.callout)
+            }
             
             Divider()
                 .offset(y: -5)
