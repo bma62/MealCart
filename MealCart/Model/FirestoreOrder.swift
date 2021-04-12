@@ -61,7 +61,7 @@ class FirestoreOrderViewModel: ObservableObject {
         
         var orderAmount: Double = 0;
         
-        let sampleItems = ["Bananas", "Apples", "Oranges"]
+        let sampleItems = ["Bananas", "Apples", "Oranges", "Sugar", "Salt", "Eggs", "Bell Pepper", "Butter", "Onions"]
         
         sampleItems.forEach { (item) in
             // Call getPrice and add to orderAmount
