@@ -34,6 +34,17 @@ struct OrderItem: Codable {
     var name: String
 }
 
+// A struct of returned JSON structure for easy decoding
+struct GroceryItem:Codable {
+    var title: String
+    var body: Double
+}
+
+struct StoreInfo:Codable {
+    var name: String
+    var address: String
+}
+
 class FirestoreOrderViewModel: ObservableObject {
     
 //    @Published var order = [FirestoreOrder]()
@@ -49,12 +60,38 @@ class FirestoreOrderViewModel: ObservableObject {
         }
         
         var orderAmount: Double = 0;
-        orderItems.forEach { (item) in
+        
+        let sampleItems = ["Bananas", "Apples", "Oranges"]
+        
+        sampleItems.forEach { (item) in
             // Call getPrice and add to orderAmount
+            getPrice(item: item) { (groceryItem, error) in
+                // If we got the requested item
+                if let groceryItem = groceryItem {
+                    orderAmount += groceryItem.body
+                    print(orderAmount)
+                } else {
+                    print(error!)
+                }
+            }
         }
         
         // Call store API to get store name and address
         var storeName = "Test Store", storeAddress = "Test Address"
+        
+        getInfo(){ (storeInfo, error) in
+            
+            if let storeInfo = storeInfo{
+                storeName = storeInfo.name
+                print(storeName)
+                storeAddress = storeInfo.address
+                print(storeAddress)
+                
+            } else {
+                print(error!)
+            }
+        
+        }
         
         let newOrder = FirestoreOrder(userId: userId, storeName: storeName, storeAddress: storeAddress, orderItems: orderItems, orderAmount: orderAmount, orderStatus: "Order Placed")
         
@@ -69,5 +106,92 @@ class FirestoreOrderViewModel: ObservableObject {
         catch {
             fatalError("Unable to encode task: \(error.localizedDescription).")
         }
+    }
+    
+    // On complete, return a grocery item or error
+    func getPrice(item: String, completion: @escaping (GroceryItem?, Error?) -> Void){
+        
+        // Data to send
+        let params = [
+            "title": "Test",
+            "body": item
+        ]
+        
+        //URL to go to
+        guard let url = URL(string: "http://localhost:3000/getPrice") else {
+            fatalError("Error creating URL object")
+        }
+        
+        //Set which data to send and other URL info
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("Application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = try? JSONSerialization.data(withJSONObject: params, options: [])
+        
+        //Create the session
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            //Print in case of error
+            if let error = error {
+                print("The error was: \(error.localizedDescription)")
+            } else {
+                do {
+                    let decoder = JSONDecoder()
+                    let decodedData = try decoder.decode(GroceryItem.self, from: data!)
+                    DispatchQueue.main.async {
+                        completion(decodedData, nil) // Extraction successful with no error
+                    }
+                } catch {
+                    print(error)
+                    completion(nil, error)
+                }
+            }
+            
+            //Start the session
+        }
+        .resume()
+        
+    }
+    
+    func getInfo( completion: @escaping (StoreInfo?, Error?) -> Void){
+        
+        // Data to send
+        let params = [
+            "title": "Test",
+            
+        ]
+        
+        //URL to go to
+        guard let url = URL(string: "http://localhost:3000/getInfo") else {
+            fatalError("Error creating URL object")
+        }
+        
+        //Set which data to send and other URL info
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("Application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = try? JSONSerialization.data(withJSONObject: params, options: [])
+        
+        //Create the session
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            //Print in case of error
+            if let error = error {
+                print("The error was: \(error.localizedDescription)")
+            } else {
+                do {
+                    let decoder = JSONDecoder()
+                    let decodedData = try decoder.decode(StoreInfo.self, from: data!)
+                    DispatchQueue.main.async {
+                        completion(decodedData, nil) // Extraction successful with no error
+                    }
+                } catch {
+                    print(error)
+                    completion(nil, error)
+                }
+            }
+            
+            //Start the session
+        }
+        .resume()
+        
     }
 }
