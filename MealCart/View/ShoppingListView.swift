@@ -10,6 +10,7 @@ import SwiftUI
 struct ShoppingListView: View {
     @EnvironmentObject var session: SessionStore
     @EnvironmentObject var mealPlanViewModel : FirestoreMealPlanViewModel
+    @ObservedObject var orderViewModel = FirestoreOrderViewModel()
     
     var body: some View {
         NavigationView {
@@ -25,6 +26,7 @@ struct ShoppingListView: View {
             .overlay(
                 Button(action: {
                     #warning("INTERACTION WITH GROCERY STORE API HERE")
+                    orderViewModel.placeOrder(userId: session.session!.uid, shoppingListItems: mealPlanViewModel.shoppingList)
                 }) {
                     Text("Place Order")
                         .font(.title2)

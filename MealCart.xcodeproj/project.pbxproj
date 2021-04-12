@@ -34,6 +34,7 @@
 		64A22DC425C78BA400D6569D /* top-1k-ingredients.csv in Resources */ = {isa = PBXBuildFile; fileRef = 64A22DC325C78BA400D6569D /* top-1k-ingredients.csv */; };
 		64A22DCE25C8A5FD00D6569D /* EmailField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64A22DCD25C8A5FD00D6569D /* EmailField.swift */; };
 		64A22DD325C8A6B500D6569D /* PasswordField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64A22DD225C8A6B500D6569D /* PasswordField.swift */; };
+		64AB27242624DA4D00013A23 /* FirestoreOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64AB27232624DA4D00013A23 /* FirestoreOrder.swift */; };
 		64D7B5CB260594E600CED79D /* ViewAddedMeals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D7B5CA260594E600CED79D /* ViewAddedMeals.swift */; };
 		64D7B5D02605978500CED79D /* AddedMealRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D7B5CF2605978500CED79D /* AddedMealRow.swift */; };
 		64E7F34425C8FC970033BD26 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64E7F34325C8FC970033BD26 /* UserProfile.swift */; };
@@ -103,6 +104,7 @@
 		64A22DC325C78BA400D6569D /* top-1k-ingredients.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "top-1k-ingredients.csv"; sourceTree = "<group>"; };
 		64A22DCD25C8A5FD00D6569D /* EmailField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailField.swift; sourceTree = "<group>"; };
 		64A22DD225C8A6B500D6569D /* PasswordField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordField.swift; sourceTree = "<group>"; };
+		64AB27232624DA4D00013A23 /* FirestoreOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreOrder.swift; sourceTree = "<group>"; };
 		64D7B5CA260594E600CED79D /* ViewAddedMeals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewAddedMeals.swift; sourceTree = "<group>"; };
 		64D7B5CF2605978500CED79D /* AddedMealRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddedMealRow.swift; sourceTree = "<group>"; };
 		64E7F34325C8FC970033BD26 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
@@ -246,6 +248,7 @@
 			children = (
 				6489B0EF25B0D27900A07B94 /* Recipe.swift */,
 				647BA89F2619502A009BD64B /* FirestoreMealPlan.swift */,
+				64AB27232624DA4D00013A23 /* FirestoreOrder.swift */,
 				64911CD725B14828002E4818 /* ModelData.swift */,
 				647CB65C25C0D6FC0071A91B /* SessionStore.swift */,
 				647CB66325C10EA60071A91B /* User.swift */,
@@ -564,6 +567,7 @@
 				647CB65D25C0D6FC0071A91B /* SessionStore.swift in Sources */,
 				64950E40261FDD01009A6255 /* SearchBar.swift in Sources */,
 				6489B0F025B0D27900A07B94 /* Recipe.swift in Sources */,
+				64AB27242624DA4D00013A23 /* FirestoreOrder.swift in Sources */,
 				647CB61225C0CF4A0071A91B /* LogInView.swift in Sources */,
 				64A22DD325C8A6B500D6569D /* PasswordField.swift in Sources */,
 				64911CD825B14828002E4818 /* ModelData.swift in Sources */,
