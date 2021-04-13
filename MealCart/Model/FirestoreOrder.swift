@@ -53,7 +53,7 @@ class FirestoreOrderViewModel: ObservableObject {
     func fetchOrder(userId: String) {
         db.collection("orders")
             .whereField("userId", isEqualTo: userId)
-            .order(by: "orderCreatedTime", descending: true)
+//            .order(by: "orderCreatedTime", descending: true)
             // Subscribe to updates at the server side
             .addSnapshotListener { querySnapshot, error in
                 if let querySnapshot = querySnapshot {
