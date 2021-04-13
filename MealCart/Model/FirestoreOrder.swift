@@ -14,7 +14,7 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 // Document of an order
-struct FirestoreOrder: Codable {
+struct FirestoreOrder: Codable, Identifiable, Hashable {
     @DocumentID var id = UUID().uuidString // Get a uuid as document name
     var userId: String
     var driverId: String?            // Driver app will fill this in when a driver takes order
@@ -25,16 +25,15 @@ struct FirestoreOrder: Codable {
     var orderStatus: String          // Driver app will update this when taking and completing orders
     @ServerTimestamp var orderCreatedTime: Timestamp? // Let Firestore write server time to each document for ordering
     var orderCompletedTime: Timestamp? // Driver app will fill this in when completing order
-    
 }
 
-struct OrderItem: Codable {
+struct OrderItem: Codable, Hashable {
     var amount: Double
     var unit: String
     var name: String
 }
 
-// A struct of returned JSON structure for easy decoding
+// A struct of returned JSON structure from grocery store API
 struct GroceryItem:Codable {
     var title: String
     var body: Double
@@ -47,11 +46,25 @@ struct StoreInfo:Codable {
 
 class FirestoreOrderViewModel: ObservableObject {
     
-//    @Published var order = [FirestoreOrder]()
+    @Published var order = [FirestoreOrder]()
 
     private var db = Firestore.firestore()
 
-    func placeOrder(userId: String, shoppingListItems: [FirestoreShoppingListItem]) {
+    func fetchOrder(userId: String) {
+        db.collection("orders")
+            .whereField("userId", isEqualTo: userId)
+            .order(by: "orderCreatedTime", descending: true)
+            // Subscribe to updates at the server side
+            .addSnapshotListener { querySnapshot, error in
+                if let querySnapshot = querySnapshot {
+                    self.order = querySnapshot.documents.compactMap { document -> FirestoreOrder? in
+                        try? document.data(as: FirestoreOrder.self)
+                    }
+                }
+            }
+    }
+    
+    func placeOrder(userId: String, shoppingListItems: [FirestoreShoppingListItem]) -> Double {
         
         // Generate order items
         var orderItems = [OrderItem]()
@@ -59,7 +72,7 @@ class FirestoreOrderViewModel: ObservableObject {
             orderItems.append(OrderItem(amount: shoppingListItem.amount, unit: shoppingListItem.unit, name: shoppingListItem.name))
         }
         
-        var orderAmount: Double = 0;
+        var orderAmount: Double = 0
         
         let sampleItems = ["Bananas", "Apples", "Oranges", "Sugar", "Salt", "Eggs", "Bell Pepper", "Butter", "Onions"]
         
@@ -96,6 +109,8 @@ class FirestoreOrderViewModel: ObservableObject {
         let newOrder = FirestoreOrder(userId: userId, storeName: storeName, storeAddress: storeAddress, orderItems: orderItems, orderAmount: orderAmount, orderStatus: "Order Placed")
         
         addOrder(order: newOrder)
+        
+        return orderAmount
     }
     
     // Add to database

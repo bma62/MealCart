@@ -117,7 +117,7 @@ class FirestoreMealPlanViewModel: ObservableObject {
         // Updates are done, clear local recipes the user selected
         mealPlanRecipes = []
         
-        removeShoppingList(userId: userId)
+        removeShoppingList(userId: userId, shouldRegenerateList: true)
     }
     
     // Update a user meal plan's isFavourite field
@@ -235,7 +235,7 @@ class FirestoreMealPlanViewModel: ObservableObject {
     }
     
     // Remove the user's current shopping list to prepare for new upload
-    func removeShoppingList(userId: String) {
+    func removeShoppingList(userId: String, shouldRegenerateList: Bool) {
         
         db.collection("shoppingLists")
             .whereField("userId", isEqualTo: userId)
@@ -246,7 +246,10 @@ class FirestoreMealPlanViewModel: ObservableObject {
                     for document in querySnapshot!.documents {
                         document.reference.delete()
                     }
-                    self.generateShoppingList(userId: userId)
+                    if shouldRegenerateList {
+                        self.generateShoppingList(userId: userId)
+
+                    }
                 }
             }
     }

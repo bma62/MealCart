@@ -13,6 +13,7 @@ import SwiftUI
 struct HomeScreen: View {
     @EnvironmentObject var session: SessionStore
     @EnvironmentObject var mealPlanViewModel: FirestoreMealPlanViewModel
+    @EnvironmentObject var orderViewModel: FirestoreOrderViewModel
     
     @State private var selectedTab = Tab.mealPan
     @State private var showActionSheet = false
@@ -66,6 +67,7 @@ struct HomeScreen: View {
             mealPlanViewModel.fetchMealPlan(userId: userId)
             mealPlanViewModel.fetchFavouriteMealPlan(userId: userId)
             mealPlanViewModel.fetchShoppingList(userId: userId)
+            orderViewModel.fetchOrder(userId: userId)
         }
         .onChange(of: selectedTab, perform: { value in
             // Open the action sheet if the add recipe tab is selected
@@ -93,12 +95,14 @@ struct HomeScreen: View {
 struct HomeScreen_Previews: PreviewProvider {
     static let session = SessionStore()
     static let mealPlanViewModel = FirestoreMealPlanViewModel()
+    static let orderViewModel = FirestoreOrderViewModel()
     
     static var previews: some View {
         Group {
             HomeScreen()
                 .environmentObject(session)
                 .environmentObject(mealPlanViewModel)
+                .environmentObject(orderViewModel)
         }
     }
 }

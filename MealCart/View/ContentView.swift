@@ -13,6 +13,7 @@ import SwiftUI
 struct ContentView: View {
     @ObservedObject private var session = SessionStore()
     @ObservedObject private var mealPlanViewModel = FirestoreMealPlanViewModel()
+    @ObservedObject private var orderViewModel = FirestoreOrderViewModel()
     
     func getUser() {
         session.listen()
@@ -24,6 +25,7 @@ struct ContentView: View {
                 HomeScreen()
                     .environmentObject(session)
                     .environmentObject(mealPlanViewModel)
+                    .environmentObject(orderViewModel)
             } else {
                 LogInView()
                     .environmentObject(session)
