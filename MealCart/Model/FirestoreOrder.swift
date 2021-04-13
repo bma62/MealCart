@@ -47,9 +47,9 @@ struct StoreInfo:Codable {
 class FirestoreOrderViewModel: ObservableObject {
     
     @Published var order = [FirestoreOrder]()
-
+    
     private var db = Firestore.firestore()
-
+    
     func fetchOrder(userId: String) {
         db.collection("orders")
             .whereField("userId", isEqualTo: userId)
@@ -92,7 +92,7 @@ class FirestoreOrderViewModel: ObservableObject {
         // Call store API to get store name and address
         var storeName = "Test Store", storeAddress = "Test Address"
         
-        getInfo(){ (storeInfo, error) in
+        getInfo() { (storeInfo, error) in
             
             if let storeInfo = storeInfo{
                 storeName = storeInfo.name
@@ -100,17 +100,18 @@ class FirestoreOrderViewModel: ObservableObject {
                 storeAddress = storeInfo.address
                 print(storeAddress)
                 
+                let newOrder = FirestoreOrder(userId: userId, storeName: storeName, storeAddress: storeAddress, orderItems: orderItems, orderAmount: orderAmount, orderStatus: "Order Placed")
+                
+                self.addOrder(order: newOrder)
+                
             } else {
                 print(error!)
             }
-        
+            
         }
         
-        let newOrder = FirestoreOrder(userId: userId, storeName: storeName, storeAddress: storeAddress, orderItems: orderItems, orderAmount: orderAmount, orderStatus: "Order Placed")
-        
-        addOrder(order: newOrder)
-        
         return orderAmount
+        
     }
     
     // Add to database
