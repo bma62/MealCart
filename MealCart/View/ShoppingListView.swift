@@ -32,9 +32,11 @@ struct ShoppingListView: View {
                     // Only trigger placing order if shopping list is not empty
                     if !mealPlanViewModel.shoppingList.isEmpty {
                         // Place order and show confirmation with order total
-                        orderAmount = orderViewModel.placeOrder(userId: session.session!.uid, shoppingListItems: mealPlanViewModel.shoppingList)
-                        showConfirmation = true
-                        mealPlanViewModel.removeShoppingList(userId: session.session!.uid, shouldRegenerateList: false) // Clear shopping list after placing an order
+                        orderViewModel.placeOrder(userId: session.session!.uid, shoppingListItems: mealPlanViewModel.shoppingList) { (amount) in
+                            orderAmount = amount
+                            showConfirmation = true
+                            mealPlanViewModel.removeShoppingList(userId: session.session!.uid, shouldRegenerateList: false) // Clear shopping list after placing an order
+                        }
                     }
                 }) {
                     Text("Place Order")

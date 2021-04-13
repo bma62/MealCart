@@ -64,7 +64,7 @@ class FirestoreOrderViewModel: ObservableObject {
             }
     }
     
-    func placeOrder(userId: String, shoppingListItems: [FirestoreShoppingListItem]) -> Double {
+    func placeOrder(userId: String, shoppingListItems: [FirestoreShoppingListItem], completion: @escaping (Double) -> Void) {
         
         // Generate order items
         var orderItems = [OrderItem]()
@@ -76,13 +76,18 @@ class FirestoreOrderViewModel: ObservableObject {
         
         let sampleItems = ["Bananas", "Apples", "Oranges", "Sugar", "Salt", "Eggs", "Bell Pepper", "Butter", "Onions"]
         
+        let asyncCalls = DispatchGroup()
+        
         sampleItems.forEach { (item) in
+            asyncCalls.enter()
+            
             // Call getPrice and add to orderAmount
             getPrice(item: item) { (groceryItem, error) in
                 // If we got the requested item
                 if let groceryItem = groceryItem {
                     orderAmount += groceryItem.body
                     print(orderAmount)
+                    asyncCalls.leave()
                 } else {
                     print(error!)
                 }
@@ -92,6 +97,7 @@ class FirestoreOrderViewModel: ObservableObject {
         // Call store API to get store name and address
         var storeName = "Test Store", storeAddress = "Test Address"
         
+        asyncCalls.enter()
         getInfo() { (storeInfo, error) in
             
             if let storeInfo = storeInfo{
@@ -99,10 +105,7 @@ class FirestoreOrderViewModel: ObservableObject {
                 print(storeName)
                 storeAddress = storeInfo.address
                 print(storeAddress)
-                
-                let newOrder = FirestoreOrder(userId: userId, storeName: storeName, storeAddress: storeAddress, orderItems: orderItems, orderAmount: orderAmount, orderStatus: "Order Placed")
-                
-                self.addOrder(order: newOrder)
+                asyncCalls.leave()
                 
             } else {
                 print(error!)
@@ -110,8 +113,14 @@ class FirestoreOrderViewModel: ObservableObject {
             
         }
         
-        return orderAmount
-        
+        // Wait until all async calls are finished
+        asyncCalls.notify(queue: .main) {
+            let newOrder = FirestoreOrder(userId: userId, storeName: storeName, storeAddress: storeAddress, orderItems: orderItems, orderAmount: orderAmount, orderStatus: "Order Placed")
+            
+            self.addOrder(order: newOrder)
+            
+            completion(orderAmount)
+        }
     }
     
     // Add to database
