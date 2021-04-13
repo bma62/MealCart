@@ -17,9 +17,11 @@ struct OrderHistoryView: View {
             List {
                 ForEach(orderViewModel.order) { order in
                     HStack {
-                        Text("\(dateFormatter(from:order.orderCreatedTime!.dateValue()))")
-                        Spacer()
-                        Text("$\(formatNumber(from: order.orderAmount))")
+                        if let createdTime = order.orderCreatedTime {
+                            Text("\(dateFormatter(from:createdTime.dateValue()))")
+                            Spacer()
+                            Text("$\(formatNumber(from: order.orderAmount))")
+                        }
                     }
                 }
             }
